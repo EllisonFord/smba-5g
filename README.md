@@ -1,4 +1,4 @@
-# smba-5g
+# 5G Channel Model for the Advanced Practical Course Sensor Model-Based Autonomous Driving
 
 # Summary
 
