@@ -5,7 +5,9 @@
 
 ## Required
 Python >= 3.5
+
 numpy
+
 matplotlib
 
 #### Known issues
