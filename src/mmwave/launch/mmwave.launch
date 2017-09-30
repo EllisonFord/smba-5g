@@ -1,0 +1,15 @@
+<launch>
+	
+  <!—- roslaunch will automatically start a roscore if there isn't already one running.—->
+
+
+
+
+  <node pkg="marker_publisher" type="marker_publisher" name="marker_publisher_node"/>
+
+  <node pkg=“mmwave” type=“model.py” name=""/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mmwave)/launch/markers.vcg"/>
+
+
+</launch>

@@ -1,0 +1,4 @@
+int32 msg_id
+string origin_name
+float64 generation_time
+float64 last_modification
