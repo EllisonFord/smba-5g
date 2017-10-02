@@ -9,7 +9,7 @@
 #   ____  __  __ ____    _
 #  / ___||  \/  | __ )  / \
 #  \___ \| |\/| |  _ \ / _ \
-#   ___) | |  | | |_) / ___ \       Created by H. Mirzai, O. El Badramany, M. Riedel on 10th of May 2017
+#   ___) | |  | | |_) / ___ \       Created by H. Mirzai, O. El Badramany on 10th of May 2017
 #  |____/|_|  |_|____/_/   \_\
 #
 #

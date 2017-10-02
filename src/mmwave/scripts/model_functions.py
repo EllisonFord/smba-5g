@@ -9,24 +9,25 @@
 #   ____  __  __ ____    _
 #  / ___||  \/  | __ )  / \
 #  \___ \| |\/| |  _ \ / _ \
-#   ___) | |  | | |_) / ___ \       Created by H. Mirzai, O. El Badramany, M. Riedel on 10th of May 2017
+#   ___) | |  | | |_) / ___ \       Created by H. Mirzai, O. El Badramany on 10th of May 2017
 #  |____/|_|  |_|____/_/   \_\
 #
 #
 
-from numpy import log10, log2, cos
+import numpy as np
+from mimo import *
 from project_constants import *
 
 # Free Space Path Loss (1m reference)
 def free_space_path_loss_1m(carrier_freq):
-    return 32.4 + 20 * log10(carrier_freq) # def. 28 GHz
+    return 32.4 + 20 * np.log10(carrier_freq) # def. 28 GHz
 
 
 # Log Normal Shadowing Path Loss
 #n: Path loss exponent (1 < n < 5)
 #chi: standard variation fadin (0 < chi < 20)
 def lognormal_path_loss(carrier_freq, tr_distance, pl_exponent, chi = 4):
-    return free_space_path_loss_1m(carrier_freq) + 10 * pl_exponent * log10(tr_distance) + chi
+    return free_space_path_loss_1m(carrier_freq) + 10 * pl_exponent * np.log10(tr_distance) + chi
 
 
 # Weather attenuation factor
@@ -57,8 +58,8 @@ def rain_loss(rain):
     ah = 0.9679
     kv = 0.1964
     av = 0.9277
-    k = (kh + kv + (kh - kv) * cos(theta)**2 * cos(2 * tau) ) / 2
-    a = (kh * ah + kv * av + ( kh * ah - kv * av) * cos(theta) **2 * cos(2 * tau) ) / 2 * k
+    k = (kh + kv + (kh - kv) * np.cos(theta)**2 * np.cos(2 * tau) ) / 2
+    a = (kh * ah + kv * av + ( kh * ah - kv * av) * np.cos(theta) **2 * np.cos(2 * tau) ) / 2 * k
     return (k * rain ** a) / 1000 #return in db/m
 
 
@@ -76,7 +77,7 @@ def nyquist_noise(bandwidth, temp = 20):
     bw = bandwidth * 1e6 # Bandwidth given in MHz
     kb = 1.38065e-23 #Boltzmann Constant
     temp_kelvin = 273.15 + temp
-    return 10 * log10(kb * temp_kelvin * 1e3) + 10 * log10(bw)
+    return 10 * np.log10(kb * temp_kelvin * 1e3) + 10 * np.log10(bw)
 
 def snr_db(signal, noise):
     res = signal + noise
@@ -88,25 +89,28 @@ def snr(signal, noise):
     s = 10**((signal-30)/10)
     n = 10**((noise-30)/10)
     return s/n
-    #return signal / noise;
 
 def shannon_capacity(bandwidth, snr):
     bw = bandwidth * 1e6 # Bandwidth given in MHz
-    return bw * log2(1 + snr)
-
-labels =   ["Power in dB", "Distance in m", "Freq. Bandwidth in Hz", "Environment", "Vegetation [1 . . 0]", "Topology [1 . . 0]", "Weather attenuation factor [1 . . 0]"]
-
-def snr_call(no_transmitters = defaults[0], no_receivers = defaults[1], power = defaults[2], distance = defaults[3], freq = defaults[4], environ1 = environment[1][0], environ2 = environment[2][0],  vegetation = defaults[6], topology = defaults[7], weather = defaults[8]):
-    #TODO: complete
-    return None
+    return bw * np.log2(1 + snr)
 
 
-def l_cab():
-    pass
+def mimo_call(snr):
+    c = calculate_Channel_Capacity(avg_SNR=30, nR=20, nT=20, f_Bandwidth=800)  # Answer is in Mbit/s
+    if c < 1000:
+        print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c) + ' Mbit/s')
+    else:
+        print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c / 1000) + ' Gbit/s')
 
-def l_env(d):
-    return 20 * log10(2.25 / d)
 
 
-def p_r():
-    return eirp(dB*m) + G_r - 32.44 - (20 * log10(d * f)) - l_cab() - l_env(d)
+
+#def l_cab():
+#    pass
+
+#def l_env(d):
+#    return 20 * np.log10(2.25 / d)
+
+
+#def p_r(db, m, G_r, d, f):
+#    return eirp(dB*m) + G_r - 32.44 - (20 * np.log10(d * f)) - l_cab() - l_env(d)
