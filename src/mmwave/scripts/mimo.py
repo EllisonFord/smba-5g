@@ -52,7 +52,7 @@ def plot_mimo(min_SNR, max_SNR): # e.g. plot_mimo(1, 30)
 
     for i in range(min_SNR, max_SNR + 1):
 
-        c = calculate_Channel_Capacity(nR, nT, i)
+        c = calculate_Channel_Capacity(i, nR, nT, 200)
         x.append(i)
         y.append(c / 1000)
         if c < 1000:
@@ -66,3 +66,4 @@ def plot_mimo(min_SNR, max_SNR): # e.g. plot_mimo(1, 30)
     plt.ylabel('Channel Capacity in Gbits/s')
     plt.show()
 
+#plot_mimo(1, 30)

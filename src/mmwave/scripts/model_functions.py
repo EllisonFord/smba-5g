@@ -107,24 +107,21 @@ def mimo_call(snr):
 
 
 
-mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(50), 30, 10, 10), nyquist_noise(200)))
+mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(50) + foilage_loss(200, 1), 30, 10, 10), nyquist_noise(200)))
 
 mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(200)))
 
-mimo_call(snr(friis(path_loss(500, 200, 0) + rain_loss(50), 30, 10, 10), nyquist_noise(28.0)))
-
-mimo_call(snr(friis(path_loss(500, 200, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(28.0)))
 
 
 #mimo_call(snr(friis(path_loss(d=100, carrier_freq=28.0, pl_exp=0) + rain_loss(rainfall=0), tx_power_db=30, tx_gain=10, rx_gain=10), nyquist_noise(bandwidth=800)))
 
 
-print(snr(friis(path_loss(500, 800, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=28.0))) # seems more correct
-print(snr(friis(path_loss(100, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=800)))
+print(snr(friis(path_loss(500, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=800))) # seems more correct
 
 
 
-        #def l_cab():
+
+#def l_cab():
 #    pass
 
 #def l_env(d):

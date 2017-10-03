@@ -28,6 +28,19 @@ button_size = 18
 decimal_places = 2
 
 
+CARR_FREQ = 0
+FREQ_BAND = 1
+NT        = 2
+NR        = 3
+DIST      = 4
+TPOWER    = 5
+TGAIN     = 6
+RGAIN     = 7
+FOILAGE   = 8
+TEMP      = 9
+RAIN      = 10
+WEATHER   = 11
+
 labels   = [
         "Carrier Frequency [GHz]",
         "Bandwidth [MHz]",
@@ -38,6 +51,7 @@ labels   = [
         "TX Gain [dBi]",
         "RX Gain [dBi]",
         "Foilage depth [m] (0...400)",
+        "Temperature [°C]"
         "Rainfall [mm/hr]",
         "Weather attenuation factor [1 . . 0]",
         "Environment"
@@ -53,10 +67,13 @@ defaults = [
         10.0,
         10.0,
         0.0,
+        20.0,
         0.0,
         0.0,
         None
         ]
+
+
 
 
 environment = [["Urban LOS", "Urban NLOS", "Rural LOS", "Rural NLOS"],

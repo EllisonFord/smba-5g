@@ -4,6 +4,7 @@
     <list default="true" id="c95b5c52-6836-4167-b3f6-b320486f314b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mimo.py" afterPath="$PROJECT_DIR$/mimo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model.py" afterPath="$PROJECT_DIR$/model.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model_functions.py" afterPath="$PROJECT_DIR$/model_functions.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project_constants.py" afterPath="$PROJECT_DIR$/project_constants.py" />
     </list>
@@ -15,18 +16,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/scripts$model.coverage" NAME="model Coverage Results" MODIFIED="1506972940293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/scripts$mimo.coverage" NAME="mimo Coverage Results" MODIFIED="1506980984494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/scripts$model_functions.coverage" NAME="model_functions Coverage Results" MODIFIED="1506989211050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/scripts$model.coverage" NAME="model Coverage Results" MODIFIED="1507045782765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/scripts$mimo.coverage" NAME="mimo Coverage Results" MODIFIED="1506989966771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/scripts$model_functions.coverage" NAME="model_functions Coverage Results" MODIFIED="1507047606057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/scripts$project_constants.coverage" NAME="project_constants Coverage Results" MODIFIED="1506981163899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="165" column="53" lean-forward="false" selection-start-line="165" selection-start-column="47" selection-end-line="165" selection-end-column="53" />
+            <state relative-caret-position="402">
+              <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="e#396#417#0" expanded="true" />
               </folding>
@@ -34,11 +35,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="model_functions.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="model_functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="115" column="36" lean-forward="false" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+            <state relative-caret-position="310">
+              <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project_constants.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project_constants.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-380">
+              <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -47,8 +58,8 @@
       <file leaf-file-name="mimo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mimo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="64" column="39" lean-forward="true" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+            <state relative-caret-position="580">
+              <caret line="68" column="1" lean-forward="false" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
               <folding>
                 <element signature="e#355#373#0" expanded="true" />
               </folding>
@@ -62,6 +73,7 @@
     <findStrings>
       <find>AT</find>
       <find>pl_exp</find>
+      <find>carrier_freq</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -70,12 +82,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/model.py" />
         <option value="$PROJECT_DIR$/vehicle_bandwidth.py" />
         <option value="$PROJECT_DIR$/ros_imp.py" />
-        <option value="$PROJECT_DIR$/mimo.py" />
         <option value="$PROJECT_DIR$/project_constants.py" />
+        <option value="$PROJECT_DIR$/mimo.py" />
         <option value="$PROJECT_DIR$/model_functions.py" />
+        <option value="$PROJECT_DIR$/model.py" />
       </list>
     </option>
   </component>
@@ -205,9 +217,9 @@
     <recent_temporary>
       <list size="4">
         <item index="0" class="java.lang.String" itemvalue="Python.model_functions" />
-        <item index="1" class="java.lang.String" itemvalue="Python.project_constants" />
+        <item index="1" class="java.lang.String" itemvalue="Python.model" />
         <item index="2" class="java.lang.String" itemvalue="Python.mimo" />
-        <item index="3" class="java.lang.String" itemvalue="Python.model" />
+        <item index="3" class="java.lang.String" itemvalue="Python.project_constants" />
       </list>
     </recent_temporary>
   </component>
@@ -242,7 +254,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24449109" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24449109" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -343,7 +355,7 @@
         <state relative-caret-position="493">
           <caret line="17" column="10" lean-forward="true" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
           <folding>
-            <element signature="e#356#368#0" expanded="true" />
+            <element signature="e#356#368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -421,7 +433,7 @@
         <state relative-caret-position="2059">
           <caret line="77" column="28" lean-forward="true" selection-start-line="77" selection-start-column="28" selection-end-line="77" selection-end-column="28" />
           <folding>
-            <element signature="e#356#368#0" expanded="true" />
+            <element signature="e#356#368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -449,7 +461,7 @@
         <state relative-caret-position="667">
           <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
-            <element signature="e#356#368#0" expanded="true" />
+            <element signature="e#356#368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -502,7 +514,7 @@
         <state relative-caret-position="667">
           <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
-            <element signature="e#356#368#0" expanded="true" />
+            <element signature="e#356#368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -537,7 +549,7 @@
         <state relative-caret-position="165">
           <caret line="11" column="73" lean-forward="false" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
           <folding>
-            <element signature="e#356#368#0" expanded="true" />
+            <element signature="e#356#368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -549,41 +561,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project_constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#356#377#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="165" column="53" lean-forward="false" selection-start-line="165" selection-start-column="47" selection-end-line="165" selection-end-column="53" />
-          <folding>
-            <element signature="e#396#417#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mimo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="64" column="39" lean-forward="true" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+        <state relative-caret-position="580">
+          <caret line="68" column="1" lean-forward="false" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
           <folding>
             <element signature="e#355#373#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/project_constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="115" column="36" lean-forward="false" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+        <state relative-caret-position="310">
+          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+          <folding>
+            <element signature="e#396#417#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

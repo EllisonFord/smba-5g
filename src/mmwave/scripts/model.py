@@ -30,45 +30,50 @@ from ros_imp import *
 #TODO: Add sliders to the GUI: Will help since all the input parameters have max and min limits
 #TODO: fix the delay in the tkinter Labels: Try compiling the code see if that improves it
 #TODO: Make a ROS launchfile for everything
-
-#TODO: Make a readme with all of the installation packages needed to run the code
+#TODO: Comment the code
 
 
 # Global variables created and set to default values
-carrier_freq    = defaults[0]
-no_transmitters = defaults[1]
-no_receivers    = defaults[2]
-power_db        = defaults[3]
-distance_m      = defaults[4]
-freq_band       = defaults[5]
-foilage         = defaults[6]
-topology        = defaults[7]
-weather_att     = defaults[8]
+carrier_freq    = defaults[CARR_FREQ]
+freq_band       = defaults[FREQ_BAND]
+no_transmitters = defaults[NT]
+no_receivers    = defaults[NR]
+distance_m      = defaults[DIST]
+power_db        = defaults[TPOWER]
+trans_gain      = defaults[TGAIN]
+receiv_gain     = defaults[RGAIN]
+foilage         = defaults[FOILAGE]
+temperature     = defaults[TEMP]
+rain            = defaults[RAIN]
+weather_att     = defaults[WEATHER]
 environ_param1  = environment[1][0]
 environ_param2  = environment[2][0]
+
 
 entry_list      = [] # the GUI form entries
 
 
 def set_defaults():
     global carrier_freq
-    carrier_freq = defaults[0]
-    global no_transmitters
-    no_transmitters = defaults[1]
-    global no_receivers
-    no_receivers = defaults[2]
-    global power_db
-    power_db = defaults[3]
-    global distance_m
-    distance_m = defaults[4]
+    carrier_freq = defaults[CARR_FREQ]
     global freq_band
-    freq_band = defaults[5]
+    freq_band = defaults[FREQ_BAND]
+    global no_transmitters
+    no_transmitters = defaults[NT]
+    global no_receivers
+    no_receivers = defaults[NR]
+    global distance_m
+    distance_m = defaults[DIST]
+    global power_db
+    power_db = defaults[TPOWER]
     global foilage
-    foilage = defaults[6]
-    global topology
-    topology = defaults[7]
+    foilage = defaults[FOILAGE]
+    global temperature
+    temperature = defaults[TEMP]
+    global rain
+    rain = defaults[RAIN]
     global weather_att
-    weather_att = defaults[8]
+    weather_att = defaults[WEATHER]
     global environ_param1
     environ_param1 = environment[1][0]
     global environ_param2
@@ -77,37 +82,46 @@ def set_defaults():
 
 def userinput():
 
-    # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
-    check_topic_status()
+    check_topic_status() # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
 
     for i, entry in enumerate(entry_list):
-        if i == 0:
+        if i == CARR_FREQ:
             global carrier_freq
             carrier_freq    = float(entry.get())
-        if i == 1:
-            global no_transmitters
-            no_transmitters = int(entry.get())
-        if i == 2:
-            global no_receivers
-            no_receivers    = int(entry.get())
-        if i == 3:
-            global power_db
-            power_db        = float(entry.get())
-        if i == 4:
-            global distance_m
-            distance_m      = float(entry.get())
-        if i == 5:
+        if i == FREQ_BAND:
             global freq_band
             freq_band       = float(entry.get())
-        if i == 6:
+        if i == NT:
+            global no_transmitters
+            no_transmitters = int(entry.get())
+        if i == NR:
+            global no_receivers
+            no_receivers    = int(entry.get())
+        if i == DIST:
+            global distance_m
+            distance_m      = float(entry.get())
+        if i == TPOWER:
+            global power_db
+            power_db        = float(entry.get())
+        if i == TGAIN:
+            global trans_gain
+            trans_gain      = float(entry.get())
+        if i == RGAIN:
+            global receiv_gain
+            receiv_gain     = float(entry.get())
+        if i == FOILAGE:
             global foilage
             foilage         = float(entry.get())
-        if i == 7:
-            global topology
-            topology        = float(entry.get())
-        if i == 8:
+        if i == TEMP:
+            global temperature
+            temperature     = float(entry.get())
+        if i == RAIN:
+            global rain
+            rain            = float(entry.get())
+        if i == WEATHER:
             global weather_att
             weather_att     = float(entry.get())
+
 
 
 
@@ -120,34 +134,18 @@ def option_func(value):
     if value == "Urban LOS":
         environ_param1 = environment[1][0] # assigns 2.0
         environ_param2 = environment[2][0] # assigns 4.0
-
     elif value == "Urban NLOS":
         environ_param1 = environment[1][1] # returns 3.2
         environ_param2 = environment[2][1] # returns 7.0
-
     elif value == "Rural LOS":
         environ_param1 = environment[1][2] # returns 2.16
         environ_param2 = environment[2][2] # returns 4.0
-
     else:
         environ_param1 = environment[1][3]  # returns 2.75
         environ_param2 = environment[2][3]  # returns 8.0
 
 
 def plot_func():
-    """"
-    carrier_freq = defaults[0]
-    no_transmitters = defaults[1]
-    no_receivers = defaults[2]
-    power_db = defaults[3]
-    distance_m = defaults[4]
-    freq_band = defaults[5]
-    foilage = defaults[6]
-    topology = defaults[7]
-    weather_att = defaults[8]
-    environ_param1 = environment[1][0]
-    environ_param2 = environment[2][0]
-    """
 
     userinput()
 
@@ -160,6 +158,8 @@ def plot_func():
 
     ### Path Loss Plots ###
 
+    pl_exp = 0
+
     # Log Normal w/ Path Loss
     dat1 = []
     for d in d1:
@@ -170,14 +170,14 @@ def plot_func():
     # Log Normal + Foilage Path Loss
     dat2 = []
     for d in d1:
-        dat2.append(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, d_foilage))
+        dat2.append(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, foilage))
 
     plt.plot(d1, dat2, 'g.', label='PL + Foilage')
 
     # Log Normal + Rain Loss
     dat3 = []
     for d in d1:
-        dat3.append(path_loss(d, carrier_freq, pl_exp) + rain_loss(rainfall))
+        dat3.append(path_loss(d, carrier_freq, pl_exp) + rain_loss(rain))
 
     plt.plot(d1, dat3, 'y.', label='PL + Rain')
 
@@ -218,10 +218,10 @@ def plot_func():
     dat4 = []
     for d in d1:
         dat4.append(
-            shannon_capacity(bandwidth,
+            shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp), tx_power_db, tx_gain, rx_gain),
-                                 nyquist_noise(bandwidth)
+                                 friis(path_loss(d, carrier_freq, pl_exp), power_db, trans_gain, receiv_gain),
+                                 nyquist_noise(freq_band, temperature)
                              )
                              )
         )
@@ -232,11 +232,11 @@ def plot_func():
     dat5 = []
     for d in d1:
         dat5.append(
-            shannon_capacity(bandwidth,
+            shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, d_foilage),
-                                       tx_power_db, tx_gain, rx_gain),
-                                 nyquist_noise(bandwidth)
+                                 friis(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, foilage),
+                                       power_db, trans_gain, receiv_gain),
+                                 nyquist_noise(freq_band, temperature)
                              )
                              )
         )
@@ -247,11 +247,11 @@ def plot_func():
     dat6 = []
     for d in d1:
         dat6.append(
-            shannon_capacity(bandwidth,
+            shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp) + rain_loss(rainfall), tx_power_db, tx_gain,
-                                       rx_gain),
-                                 nyquist_noise(bandwidth)
+                                 friis(path_loss(d, carrier_freq, pl_exp) + rain_loss(rain), power_db, trans_gain,
+                                       receiv_gain),
+                                 nyquist_noise(freq_band, temperature)
                              )
                              )
         )
