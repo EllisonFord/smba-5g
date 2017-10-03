@@ -17,8 +17,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# numpy is the library used for mathematical functions
-
 # Global variables
 # nR = number of Receivers
 # nT = number of Transmitters
@@ -43,8 +41,6 @@ def calculate_Channel_Capacity(avg_SNR, nR, nT, f_Bandwidth):
     tmp = np.linalg.det(A)
     C = np.real(np.log2(tmp))
     return f_Bandwidth * C
-
-
 
 
 

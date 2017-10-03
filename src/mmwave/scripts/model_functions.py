@@ -14,9 +14,8 @@
 #
 #
 
-import numpy as np
+#import numpy as np
 from mimo import *
-from project_constants import *
 
 # Free Space Path Loss (1m reference)
 def free_space_path_loss_1m(carrier_freq):
@@ -95,22 +94,41 @@ def shannon_capacity(bandwidth, snr):
     return bw * np.log2(1 + snr)
 
 
+
+
+
+
 def mimo_call(snr):
     c = calculate_Channel_Capacity(avg_SNR=30, nR=20, nT=20, f_Bandwidth=800)  # Answer is in Mbit/s
-    if c < 1000:
+    if c < 1000.:
         print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c) + ' Mbit/s')
     else:
         print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c / 1000) + ' Gbit/s')
 
 
 
+mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(50), 30, 10, 10), nyquist_noise(200)))
 
-#def l_cab():
+mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(200)))
+
+mimo_call(snr(friis(path_loss(500, 200, 0) + rain_loss(50), 30, 10, 10), nyquist_noise(28.0)))
+
+mimo_call(snr(friis(path_loss(500, 200, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(28.0)))
+
+
+#mimo_call(snr(friis(path_loss(d=100, carrier_freq=28.0, pl_exp=0) + rain_loss(rainfall=0), tx_power_db=30, tx_gain=10, rx_gain=10), nyquist_noise(bandwidth=800)))
+
+
+print(snr(friis(path_loss(500, 800, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=28.0))) # seems more correct
+print(snr(friis(path_loss(100, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=800)))
+
+
+
+        #def l_cab():
 #    pass
 
 #def l_env(d):
 #    return 20 * np.log10(2.25 / d)
-
 
 #def p_r(db, m, G_r, d, f):
 #    return eirp(dB*m) + G_r - 32.44 - (20 * np.log10(d * f)) - l_cab() - l_env(d)

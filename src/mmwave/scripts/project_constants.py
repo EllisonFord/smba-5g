@@ -59,7 +59,6 @@ defaults = [
         ]
 
 
-
 environment = [["Urban LOS", "Urban NLOS", "Rural LOS", "Rural NLOS"],
                [2.0,            3.2,            2.16,       2.75],
                [4.0,            7.0,            4.0,        8.0]]
