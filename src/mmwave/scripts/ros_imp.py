@@ -18,7 +18,8 @@
 import rospy
 
 from numpy import hypot
-
+from model_functions import *
+from model import *
 from visualization_msgs.msg import MarkerArray
 
 from project_constants import *
@@ -31,7 +32,6 @@ default_msg_type = "visualization_msgs/MarkerArray"
 
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
-
 
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
@@ -53,10 +53,13 @@ def set_ros_table():
         Label(master, text="{} m".format(0),            bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
         Label(master, text="Vehicle Data:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        Label(master, text="{} Gb/s".format(0),         bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="{} Gbit/s".format(0),       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="Transfer Speed:",           bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        Label(master, text="{} Gb/s".format(0),         bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        Label(master, text="Transfer Speed:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        Label(master, text="{} Gbit/s".format(0),       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+
+        #Label(master, text="Dropped:",                  bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=12) # how much can the tower provide
+        #Label(master, text="{}%".format(0),             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
         Label(master, text="Vehicle type:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
         Label(master, text="{}".format("No data."),     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
@@ -84,13 +87,17 @@ def callback(data):
 
         distance_m = hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
+        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, 1) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)
+
         Label(master, text="{}".format(data.markers[i].id),                   bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
         Label(master, text="{} m".format(round(distance_m, decimal_places)),  bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        Label(master, text="{} Gb/s".format(round(1.234, decimal_places)),    bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="{} Gbit/s".format(round(1.234, decimal_places)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="{} Gb/s".format(round(1.234, decimal_places)),    bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        Label(master, text="{} Gbit/s".format(round(c/1000, decimal_places)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+
+        #Label(master, text="{}%".format(round(0.123, decimal_places)),        bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
         Label(master, text="{}".format(data.markers[i].text),                 bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
@@ -134,7 +141,6 @@ def check_topic_status():
 
         else:
             Label(master, image=status_green, border=0                             ).grid(row=1, column=2)
-
             return True
 
     else:

@@ -79,7 +79,7 @@ def set_defaults():
     global environ_param2
     environ_param2 = environment[2][0]
 
-
+# reads the input of the user and saves it as a global variable
 def userinput():
 
     check_topic_status() # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
@@ -121,8 +121,6 @@ def userinput():
         if i == WEATHER:
             global weather_att
             weather_att     = float(entry.get())
-
-
 
 
 def option_func(value):
@@ -298,11 +296,16 @@ if __name__ == '__main__':
     # Prints the ROS table on the right side of the GUI
     set_ros_table()
 
-    # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
-    check_topic_status()
+    try:
+        # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
+        check_topic_status()
 
-    # Begins the subscriber
-    listener()
+        # Begins the subscriber
+        listener()
+
+    except:
+        print("ROS core does not seem to be running. The GUI will start now.")
+
 
     # Runs the GUI and ROS on a loop created by tkinter
     mainloop()

@@ -107,24 +107,3 @@ def mimo_print_src(snr, nt, nr, freq_bandwidth):
 
 
 
-distance = 500
-carrier_frequency = 28.0
-pathloss_exp      = 1
-rain_density      = 50
-foilage_density   = 100
-transmiter_power  = 30
-transmiter_gain   = 10
-receiver_gain     = 10
-temperature       = 20
-bandwidth         = 200
-num_transmiters   = 5
-num_receivers     = 5
-
-
-mimo_print_src(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200)
-
-
-print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
-print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
-print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
-

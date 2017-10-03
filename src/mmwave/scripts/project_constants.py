@@ -51,7 +51,7 @@ labels   = [
         "TX Gain [dBi]",
         "RX Gain [dBi]",
         "Foilage depth [m] (0...400)",
-        "Temperature [°C]"
+        "Temperature [°C]",
         "Rainfall [mm/hr]",
         "Weather attenuation factor [1 . . 0]",
         "Environment"
@@ -72,7 +72,6 @@ defaults = [
         0.0,
         None
         ]
-
 
 
 
