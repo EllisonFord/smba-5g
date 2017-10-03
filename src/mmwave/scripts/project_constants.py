@@ -81,9 +81,8 @@ environment = [["Urban LOS", "Urban NLOS", "Rural LOS", "Rural NLOS"],
                [4.0,            7.0,            4.0,        8.0]]
 
 
-colour1 = "light sky blue"
-
-colour2 = "white"
+colour_even = "light sky blue"
+colour_odd  = "white"
 
 # Makes a relative
 dir = path.dirname(__file__)

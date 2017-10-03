@@ -158,7 +158,7 @@ def plot_func():
 
     ### Path Loss Plots ###
 
-    pl_exp = 0
+    pl_exp = 1
 
     # Log Normal w/ Path Loss
     dat1 = []

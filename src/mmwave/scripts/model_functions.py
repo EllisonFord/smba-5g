@@ -29,8 +29,10 @@ def lognormal_path_loss(carrier_freq, tr_distance, pl_exponent, chi = 4):
     return free_space_path_loss_1m(carrier_freq) + 10 * pl_exponent * np.log10(tr_distance) + chi
 
 
-# Weather attenuation factor
-AT = 0
+# TODO:Weather attenuation factor
+def weather_att(att = 0):
+    return att
+
 
 # Foilage Attenuation:
 # (Weissberger's model)
@@ -67,9 +69,8 @@ def path_loss(tr_distance, carrier_freq, pl_exponent):
     return lognormal_path_loss(carrier_freq, tr_distance, pl_exponent, chi = 0) # + AT + fl(carrier_freq, foilage_depth = 10)
 
 
-def friis(pathloss, tx_power, tx_gain, rx_gain):
-    res = tx_power + tx_gain + rx_gain - pathloss
-    #print(pathloss, tx_power, tx_gain, rx_gain, res);
+def friis(losses, tx_power, tx_gain, rx_gain):
+    res = tx_power + tx_gain + rx_gain - losses
     return res
 
 def nyquist_noise(bandwidth, temp = 20):
@@ -95,37 +96,35 @@ def shannon_capacity(bandwidth, snr):
 
 
 
-
-
-
-def mimo_call(snr):
-    c = calculate_Channel_Capacity(avg_SNR=30, nR=20, nT=20, f_Bandwidth=800)  # Answer is in Mbit/s
+def mimo_print_src(snr, nt, nr, freq_bandwidth):
+    c = calculate_Channel_Capacity(snr, nt, nr, freq_bandwidth)  # Answer is in Mbit/s
     if c < 1000.:
         print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c) + ' Mbit/s')
     else:
         print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c / 1000) + ' Gbit/s')
-
-
-
-mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(50) + foilage_loss(200, 1), 30, 10, 10), nyquist_noise(200)))
-
-mimo_call(snr(friis(path_loss(500, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(200)))
-
-
-
-#mimo_call(snr(friis(path_loss(d=100, carrier_freq=28.0, pl_exp=0) + rain_loss(rainfall=0), tx_power_db=30, tx_gain=10, rx_gain=10), nyquist_noise(bandwidth=800)))
-
-
-print(snr(friis(path_loss(500, 28.0, 0) + rain_loss(0), 30, 10, 10), nyquist_noise(bandwidth=800))) # seems more correct
+    return c
 
 
 
 
-#def l_cab():
-#    pass
+distance = 500
+carrier_frequency = 28.0
+pathloss_exp      = 1
+rain_density      = 50
+foilage_density   = 100
+transmiter_power  = 30
+transmiter_gain   = 10
+receiver_gain     = 10
+temperature       = 20
+bandwidth         = 200
+num_transmiters   = 5
+num_receivers     = 5
 
-#def l_env(d):
-#    return 20 * np.log10(2.25 / d)
 
-#def p_r(db, m, G_r, d, f):
-#    return eirp(dB*m) + G_r - 32.44 - (20 * np.log10(d * f)) - l_cab() - l_env(d)
+mimo_print_src(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200)
+
+
+print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
+print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
+print(calculate_Channel_Capacity(snr(friis(path_loss(500, 28.0, 1) + rain_loss(50) + foilage_loss(28.0, 100), 30, 10, 10), nyquist_noise(200, 20)), 5, 5, 200))
+
