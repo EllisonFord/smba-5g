@@ -16,6 +16,7 @@
 
 
 from model import *
+import numpy as np
 
 # Free Space Path Loss (1m reference)
 def free_space_path_loss_1m(carrier_freq):

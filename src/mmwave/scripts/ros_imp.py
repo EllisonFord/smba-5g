@@ -15,6 +15,7 @@
 #
 
 from model import *
+import numpy as np
 
 import rospy
 from visualization_msgs.msg import MarkerArray

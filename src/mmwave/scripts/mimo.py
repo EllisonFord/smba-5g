@@ -16,6 +16,7 @@
 
 
 from model import *
+import numpy as np
 
 
 # nR = number of Receivers
