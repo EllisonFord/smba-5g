@@ -17,10 +17,7 @@
 from model import *
 
 import rospy
-
 from visualization_msgs.msg import MarkerArray
-
-
 #from smba_core.msg import smba_object_list
 
 
@@ -127,7 +124,7 @@ def check_topic_status():
 
     topic_message_types = [type for (name, type) in topic_list]
 
-    Label(master, text="                                          ", bg=colour).grid(row=2, column=2)
+    Label(master, text="                                          ", bg=colour     ).grid(row=2, column=2)
 
     if default_topic in topic_names:
 
