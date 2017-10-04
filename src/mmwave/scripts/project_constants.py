@@ -16,6 +16,9 @@
 
 
 from model import *
+from tkinter import *
+import os.path as path
+
 
 master = Tk()
 master.title("5G Network Simulator for Autonomous Vehicles")

@@ -21,7 +21,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from ros_imp import *
 from tkinter import *
-import os.path as path
 from mimo import *
 
 #TODO: Make the path loss exponent change depending on environmental conditions
