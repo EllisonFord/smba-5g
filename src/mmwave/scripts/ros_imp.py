@@ -16,6 +16,7 @@
 
 from model import *
 import numpy as np
+from tkinter import *
 
 import rospy
 from visualization_msgs.msg import MarkerArray
@@ -128,7 +129,6 @@ def check_topic_status():
     Label(master, text="                                          ", bg=colour     ).grid(row=2, column=2)
 
     if default_topic in topic_names:
-
         if default_msg_type not in topic_message_types:
             Label(master, image=status_red, border=0                               ).grid(row=1, column=2)
             Label(master, text="Unexpected message type", bg=colour                ).grid(row=2, column=2)

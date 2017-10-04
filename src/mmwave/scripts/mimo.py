@@ -17,7 +17,7 @@
 
 from model import *
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 # nR = number of Receivers
 # nT = number of Transmitters
@@ -37,7 +37,7 @@ def calculate_Channel_Capacity(avg_SNR, nR, nT, f_Bandwidth):
     for x in np.nditer(H, op_flags=['readwrite']):
         x[...] = np.random.rayleigh(scale) + 1j * np.random.rayleigh(scale)
     I_nR = np.eye(nR, nR, dtype=int)
-    A = I_nR + (avg_SNR / nT * (np.dot(H, np.matrix.getH(H))))
+    A = I_nR + (avg_SNR / (nT * (np.dot(H, np.matrix.getH(H)))))
     tmp = np.linalg.det(A)
     C = np.real(np.log2(tmp))
     return f_Bandwidth * C
