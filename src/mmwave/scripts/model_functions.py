@@ -29,7 +29,7 @@ def lognormal_path_loss(carrier_freq, tr_distance, pl_exponent, chi = 4):
     return free_space_path_loss_1m(carrier_freq) + 10 * pl_exponent * np.log10(tr_distance) + chi
 
 
-# TODO:Weather attenuation factor
+
 def weather_att(att = 0):
     return att
 
@@ -103,7 +103,3 @@ def mimo_print_src(snr, nt, nr, freq_bandwidth):
     else:
         print('SNR = ' + str(snr) + ' dBm' + '     Channel Capacity = ' + str(c / 1000) + ' Gbit/s')
     return c
-
-
-
-

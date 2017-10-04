@@ -18,12 +18,10 @@
 from model import *
 
 
-# Global variables
 # nR = number of Receivers
 # nT = number of Transmitters
 # min_SNR and max_SNR are lower and upper bounds for the X-axis in the plot. they will be calculated in another module using the input parameters for rain,temprature,foilage, ...
 # Bandwidth frequency in MHz
-
 
 # this function calculates the implements the Channel Capacity formula for MIMO-Systems.
 # it will return the maximum data rate the channel is capable of delivering measured in Gbits/s
@@ -46,9 +44,7 @@ def calculate_Channel_Capacity(avg_SNR, nR, nT, f_Bandwidth):
 
 
 def plot_mimo(min_SNR, max_SNR, bandwidth = 200, num_transmiters = 20, num_receivers = 20):
-
     x = y = []
-
     for i in range(min_SNR, max_SNR + 1):
 
         c = calculate_Channel_Capacity(i, num_receivers, num_transmiters, bandwidth)
@@ -58,7 +54,6 @@ def plot_mimo(min_SNR, max_SNR, bandwidth = 200, num_transmiters = 20, num_recei
             print('SNR = ' + str(i) + ' dBm' + '     Channel Capacity = ' + str(c) + ' Mbit/s')
         else:
             print('SNR = ' + str(i) + ' dBm' + '     Channel Capacity = ' + str(c / 1000) + ' Gbit/s')
-
     plt.plot(x,y)
     plt.title('Channel Capacity')
     plt.xlabel('Signal to Noise Ratio')

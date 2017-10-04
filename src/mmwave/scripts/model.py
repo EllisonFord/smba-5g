@@ -31,7 +31,7 @@ from mimo import *
 #TODO: fix the delay in the tkinter Labels: Try compiling the code see if that improves it
 #TODO: Make a ROS launchfile for everything
 #TODO: Comment the code
-
+#TODO: Weather attenuation factor
 
 # Global variables created and set to default values
 carrier_freq    = defaults[CARR_FREQ]
