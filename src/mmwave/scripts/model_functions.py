@@ -14,8 +14,8 @@
 #
 #
 
-#import numpy as np
-from mimo import *
+
+from model import *
 
 # Free Space Path Loss (1m reference)
 def free_space_path_loss_1m(carrier_freq):
@@ -23,7 +23,7 @@ def free_space_path_loss_1m(carrier_freq):
 
 
 # Log Normal Shadowing Path Loss
-#n: Path loss exponent (1 < n < 5)
+#n: Path loss exponent (1 < n < 5) Normally between 2 and 4: 2 is for propagation in free space, 4 is for relatively lossy environments
 #chi: standard variation fadin (0 < chi < 20)
 def lognormal_path_loss(carrier_freq, tr_distance, pl_exponent, chi = 4):
     return free_space_path_loss_1m(carrier_freq) + 10 * pl_exponent * np.log10(tr_distance) + chi

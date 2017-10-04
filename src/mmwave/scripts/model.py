@@ -15,14 +15,13 @@
 #
 # Order of the imports affects behaviour
 
-from tkinter import *
 from model_functions import *
 from project_constants import *
-#from mimo import *
 import matplotlib.pyplot as plt
 import numpy as np
 from ros_imp import *
-
+from tkinter import *
+import os.path as path
 
 
 #TODO: Fix the crashing/freezing of the application by making nested frames in the main window
@@ -156,7 +155,7 @@ def plot_func():
 
     ### Path Loss Plots ###
 
-    pl_exp = 1
+    pl_exp = 2
 
     # Log Normal w/ Path Loss
     dat1 = []
@@ -272,11 +271,10 @@ logo_panel = Label(master, image=logo, border=0).grid(row = 0, column = 2)
 for i, label in enumerate(labels):
     Label(master, text=label, bg=colour, height = 1, width = 27).grid(row=i+1, column=0) # Place labels on column 0
     if i == len(labels) - 1:
-       a = OptionMenu(master, StringVar(), *environment[0], command=option_func)
-       a.config(width = 16)
-       a.grid(row = i+1, column = 1)
+       o = OptionMenu(master, StringVar(), *environment[0], command=option_func)
+       o.config(width = 16)
+       o.grid(row = i+1, column = 1)
     else:
-        # e. stands for Entry
         e = Entry(master, textvariable=StringVar(), width=20)
         e.grid(row = i+1, column = 1)
         e.insert(0, defaults[i])    # index, default values
