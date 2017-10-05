@@ -42,6 +42,10 @@ def calculate_Channel_Capacity(avg_SNR, nR, nT, f_Bandwidth):
     C = np.real(np.log2(tmp))
     return f_Bandwidth * C
 
+    #consider a co-relation matrix for the MIMO channel model
+
+# Cumulated Distribution Function:
+# Calculate a number of matrices H with the capacity
 
 
 def plot_mimo(min_SNR, max_SNR, bandwidth = 200, num_transmiters = 20, num_receivers = 20):

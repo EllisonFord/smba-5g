@@ -15,9 +15,9 @@
 #
 
 
-from model import *
+#from model import *
 import numpy as np
-from mimo import *
+#from mimo import *
 
 # Free Space Path Loss (1m reference)
 def free_space_path_loss_1m(carrier_freq):
@@ -96,6 +96,8 @@ def shannon_capacity(bandwidth, snr):
     bw = bandwidth * 1e6 # Bandwidth given in MHz
     return bw * np.log2(1 + snr)
 
+
+print(nyquist_noise(1/1000000 , 20))
 
 
 def mimo_print_src(snr, nt, nr, freq_bandwidth):
