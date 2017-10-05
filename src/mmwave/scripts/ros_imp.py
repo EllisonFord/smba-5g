@@ -83,7 +83,7 @@ def callback(data):
 
         distance_m = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, 2) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)
+        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)
 
         Label(master, text="{}".format(data.markers[i].id),                   bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 

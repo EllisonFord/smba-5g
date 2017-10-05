@@ -30,7 +30,9 @@ from mimo import *
 #TODO: fix the delay in the tkinter Labels: Try compiling the code see if that improves it
 #TODO: Make a ROS launchfile for everything
 #TODO: Comment the code
-#TODO: Weather attenuation factor
+#TODO: Weather/Environment attenuation factor
+#TODO: https://www.google.de/search?q=tkinter+stacking+labels&oq=tkinter+stacking+labels&aqs=chrome.0.69i59.19915j0j7&sourceid=chrome&ie=UTF-8
+#      basically get the labels to not stack on each other, you will need to change all of the variables to be dynamic tkinter variables
 
 # Global variables created and set to default values
 carrier_freq    = defaults[CARR_FREQ]
@@ -45,6 +47,7 @@ foilage         = defaults[FOILAGE]
 temperature     = defaults[TEMP]
 rain            = defaults[RAIN]
 weather_att     = defaults[WEATHER]
+path_loss_exp   = defaults[PATHLOSSEXP]
 environ_param1  = environment[1][0]
 environ_param2  = environment[2][0]
 
@@ -73,6 +76,8 @@ def set_defaults():
     rain = defaults[RAIN]
     global weather_att
     weather_att = defaults[WEATHER]
+    global path_loss_exp
+    path_loss_exp = defaults[PATHLOSSEXP]
     global environ_param1
     environ_param1 = environment[1][0]
     global environ_param2
@@ -120,6 +125,9 @@ def userinput():
         if i == WEATHER:
             global weather_att
             weather_att     = float(entry.get())
+        if i == PATHLOSSEXP:
+            global path_loss_exp
+            path_loss_exp   = float(entry.get())
 
 
 def option_func(value):

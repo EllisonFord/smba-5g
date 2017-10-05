@@ -30,18 +30,19 @@ button_size = 18
 decimal_places = 2
 
 
-CARR_FREQ = 0
-FREQ_BAND = 1
-NT        = 2
-NR        = 3
-DIST      = 4
-TPOWER    = 5
-TGAIN     = 6
-RGAIN     = 7
-FOILAGE   = 8
-TEMP      = 9
-RAIN      = 10
-WEATHER   = 11
+CARR_FREQ   = 0
+FREQ_BAND   = 1
+NT          = 2
+NR          = 3
+DIST        = 4
+TPOWER      = 5
+TGAIN       = 6
+RGAIN       = 7
+FOILAGE     = 8
+TEMP        = 9
+RAIN        = 10
+WEATHER     = 11
+PATHLOSSEXP = 12
 
 labels   = [
         "Carrier Frequency [GHz]",
@@ -55,7 +56,8 @@ labels   = [
         "Foilage depth [m] (0...400)",
         "Temperature [°C]",
         "Rainfall [mm/hr]",
-        "Weather attenuation factor [1 . . 0]",
+        "Weather attenuation factor (1 . . 0)",
+        "Path Loss Exp (1 . . 4)",
         "Environment"
         ]
 
@@ -72,6 +74,7 @@ defaults = [
         20.0,
         0.0,
         0.0,
+        2.0,
         None
         ]
 
