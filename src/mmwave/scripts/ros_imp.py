@@ -17,6 +17,7 @@
 from model import *
 import numpy as np
 from tkinter import *
+from model_functions import *
 
 import rospy
 from visualization_msgs.msg import MarkerArray
@@ -33,7 +34,7 @@ id     = IntVar()
 dist_m = DoubleVar()
 bandw  = DoubleVar()
 v_type = StringVar()
-
+v_data = DoubleVar()
 
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
@@ -55,7 +56,7 @@ def set_ros_table():
         Label(master, text="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
         Label(master, text="Vehicle Data:",                     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        Label(master, text="{} Gbit/s".format(0),               bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
         Label(master, text="Transfer Speed:",                   bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
         Label(master, text="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
@@ -87,7 +88,7 @@ def callback(data):
 
         distance_m.set(round(distance_m, decimal_places))
 
-        #Label(master, text="{} Gbit/s".format(round(1.234, decimal_places)),                bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        v_data.set(round(1.234, decimal_places))
 
         bandw.set(round(c, decimal_places))
 
