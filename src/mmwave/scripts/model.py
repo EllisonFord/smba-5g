@@ -31,7 +31,6 @@ from mimo import *
 #TODO: Make a ROS launchfile for everything
 #TODO: Comment the code
 #TODO: Weather/Environment attenuation factor
-#TODO: https://www.google.de/search?q=tkinter+stacking+labels&oq=tkinter+stacking+labels&aqs=chrome.0.69i59.19915j0j7&sourceid=chrome&ie=UTF-8
 #      basically get the labels to not stack on each other, you will need to change all of the variables to be dynamic tkinter variables
 
 
@@ -138,23 +137,18 @@ def userinput():
 
 
 def option_func(value):
-
-    global environment
-    global environ_param1
-    global environ_param2
-
     if value == "Urban LOS":
-        environ_param1 = environment[1][0] # assigns 2.0
-        environ_param2 = environment[2][0] # assigns 4.0
+        environ_param1.set(environment[1][0]) # assigns 2.0
+        environ_param2.set(environment[2][0]) # assigns 4.0
     elif value == "Urban NLOS":
-        environ_param1 = environment[1][1] # returns 3.2
-        environ_param2 = environment[2][1] # returns 7.0
+        environ_param1.set(environment[1][1]) # returns 3.2
+        environ_param2.set(environment[2][1]) # returns 7.0
     elif value == "Rural LOS":
-        environ_param1 = environment[1][2] # returns 2.16
-        environ_param2 = environment[2][2] # returns 4.0
+        environ_param1.set(environment[1][2]) # returns 2.16
+        environ_param2.set(environment[2][2]) # returns 4.0
     else:
-        environ_param1 = environment[1][3]  # returns 2.75
-        environ_param2 = environment[2][3]  # returns 8.0
+        environ_param1.set(environment[1][3])  # returns 2.75
+        environ_param2.set(environment[2][3])  # returns 8.0
 
 
 def plot_func():
