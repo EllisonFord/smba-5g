@@ -24,14 +24,11 @@ from tkinter import *
 from mimo import *
 
 #TODO: Make the path loss exponent change depending on environmental conditions
-#TODO: Fix the crashing/freezing of the application by making nested frames in the main window
 #TODO: Add a return to defaults button
 #TODO: Add sliders to the GUI: Will help since all the input parameters have max and min limits
-#TODO: fix the delay in the tkinter Labels: Try compiling the code see if that improves it
-#TODO: Make a ROS launchfile for everything
+#TODO: Finish the ROS launchfile for everything
 #TODO: Comment the code
-#TODO: Weather/Environment attenuation factor
-#      basically get the labels to not stack on each other, you will need to change all of the variables to be dynamic tkinter variables
+#TODO: Weather/Environment attenuation factor: Figure out where you got it from
 
 
 # Global variables created
