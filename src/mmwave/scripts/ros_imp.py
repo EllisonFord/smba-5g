@@ -29,12 +29,10 @@ default_msg_type = "visualization_msgs/MarkerArray"
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
 
-id = IntVar()
-id.set(0)
-
+id     = IntVar()
 dist_m = DoubleVar()
-dist_m.set(0.0)
-
+bandw  = DoubleVar()
+v_type = StringVar()
 
 
 
@@ -50,20 +48,20 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-        Label(master, text="ID",                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        Label(master, text="{}".format(id),             bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        Label(master, text="ID",                                bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        Label(master, text="{}".format(id.set(0)),              bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
-        Label(master, text="Distance to Tx:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        Label(master, text="{} m".format(0),            bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        Label(master, text="Distance to Tx:",                   bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        Label(master, text="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        Label(master, text="Vehicle Data:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        Label(master, text="{} Gbit/s".format(0),       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="Vehicle Data:",                     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        Label(master, text="{} Gbit/s".format(0),               bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="Transfer Speed:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        Label(master, text="{} Gbit/s".format(0),       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        Label(master, text="Transfer Speed:",                   bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        Label(master, text="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
-        Label(master, text="Vehicle type:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        Label(master, text="{}".format("No data."),     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        Label(master, text="Vehicle type:",                     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        Label(master, text="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
@@ -81,24 +79,19 @@ def callback(data):
 
     for i, vehicle in enumerate(data.markers):
 
-        if i % 2 == 0:
-            colour = colour_even
-        else:
-            colour = colour_odd
-
         distance_m.set(np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y))
 
-        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)
+        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)/1000
 
-        Label(master, text="{}".format(data.markers[i].id),                   bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        id.set(data.markers[i].id)
 
-        Label(master, text="{} m".format(round(distance_m, decimal_places)),  bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        distance_m.set(round(distance_m, decimal_places))
 
-        Label(master, text="{} Gbit/s".format(round(1.234, decimal_places)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        #Label(master, text="{} Gbit/s".format(round(1.234, decimal_places)),                bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="{} Gbit/s".format(round(c/1000, decimal_places)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        bandw.set(round(c, decimal_places))
 
-        Label(master, text="{}".format(data.markers[i].text),                 bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        v_type.set(data.markers[i].text)
 
 
 
