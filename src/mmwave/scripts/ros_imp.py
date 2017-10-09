@@ -29,6 +29,14 @@ default_msg_type = "visualization_msgs/MarkerArray"
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
 
+id = IntVar()
+id.set(0)
+
+dist_m = DoubleVar()
+dist_m.set(0.0)
+
+
+
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
 def set_ros_table():
@@ -43,7 +51,7 @@ def set_ros_table():
             colour = colour_odd
 
         Label(master, text="ID",                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        Label(master, text="{}".format(0),              bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        Label(master, text="{}".format(id),             bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
         Label(master, text="Distance to Tx:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
         Label(master, text="{} m".format(0),            bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
@@ -53,9 +61,6 @@ def set_ros_table():
 
         Label(master, text="Transfer Speed:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
         Label(master, text="{} Gbit/s".format(0),       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
-
-        #Label(master, text="Dropped:",                  bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=12) # how much can the tower provide
-        #Label(master, text="{}%".format(0),             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
         Label(master, text="Vehicle type:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
         Label(master, text="{}".format("No data."),     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
@@ -92,8 +97,6 @@ def callback(data):
         Label(master, text="{} Gbit/s".format(round(1.234, decimal_places)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
         Label(master, text="{} Gbit/s".format(round(c/1000, decimal_places)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
-
-        #Label(master, text="{}%".format(round(0.123, decimal_places)),        bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
         Label(master, text="{}".format(data.markers[i].text),                 bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
