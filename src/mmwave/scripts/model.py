@@ -34,30 +34,50 @@ from mimo import *
 #TODO: https://www.google.de/search?q=tkinter+stacking+labels&oq=tkinter+stacking+labels&aqs=chrome.0.69i59.19915j0j7&sourceid=chrome&ie=UTF-8
 #      basically get the labels to not stack on each other, you will need to change all of the variables to be dynamic tkinter variables
 
-# Global variables created and set to default values
-carrier_freq    = defaults[CARR_FREQ]
-freq_band       = defaults[FREQ_BAND]
-no_transmitters = defaults[NT]
-no_receivers    = defaults[NR]
-distance_m      = defaults[DIST]
-power_db        = defaults[TPOWER]
-trans_gain      = defaults[TGAIN]
-receiv_gain     = defaults[RGAIN]
-foilage         = defaults[FOILAGE]
-temperature     = defaults[TEMP]
-rain            = defaults[RAIN]
-weather_att     = defaults[WEATHER]
-path_loss_exp   = defaults[PATHLOSSEXP]
-environ_param1  = environment[1][0]
-environ_param2  = environment[2][0]
 
-
+# Global variables created
+carrier_freq    = DoubleVar()
+freq_band       = DoubleVar()
+no_transmitters = IntVar()
+no_receivers    = IntVar()
+distance_m      = DoubleVar()
+power_db        = DoubleVar()
+trans_gain      = DoubleVar()
+receiv_gain     = DoubleVar()
+foilage         = DoubleVar()
+temperature     = DoubleVar()
+rain            = DoubleVar()
+weather_att     = DoubleVar()
+path_loss_exp   = DoubleVar()
+environ_param1  = DoubleVar()
+environ_param2  = DoubleVar()
 entry_list      = [] # the GUI form entries
 
 
+
 def set_defaults():
-    global carrier_freq
-    carrier_freq = defaults[CARR_FREQ]
+    # Set variables to default values on commmand
+    carrier_freq.set(defaults[CARR_FREQ])
+    freq_band.set(defaults[FREQ_BAND])
+    no_transmitters.set(defaults[NT])
+    no_receivers.set(defaults[NR])
+    distance_m.set(defaults[DIST])
+    power_db.set(defaults[TPOWER])
+    trans_gain.set(defaults[TGAIN])
+    receiv_gain.set(defaults[RGAIN])
+    foilage.set(defaults[FOILAGE])
+    temperature.set(defaults[TEMP])
+    rain.set(defaults[RAIN])
+    weather_att.set(defaults[WEATHER])
+    path_loss_exp.set(defaults[PATHLOSSEXP])
+    environ_param1.set(environment[1][0])
+    environ_param2.set(environment[2][0])
+
+
+"""
+    carrier_freq.set(defaults[CARR_FREQ])
+#    global carrier_freq
+#    carrier_freq =
     global freq_band
     freq_band = defaults[FREQ_BAND]
     global no_transmitters
@@ -82,7 +102,7 @@ def set_defaults():
     environ_param1 = environment[1][0]
     global environ_param2
     environ_param2 = environment[2][0]
-
+"""
 # reads the input of the user and saves it as a global variable
 def userinput():
 
@@ -90,44 +110,31 @@ def userinput():
 
     for i, entry in enumerate(entry_list):
         if i == CARR_FREQ:
-            global carrier_freq
-            carrier_freq    = float(entry.get())
+            carrier_freq.set(float(entry.get()))
         if i == FREQ_BAND:
-            global freq_band
-            freq_band       = float(entry.get())
+            freq_band.set(float(entry.get()))
         if i == NT:
-            global no_transmitters
-            no_transmitters = int(entry.get())
+            no_transmitters.set(int(entry.get()))
         if i == NR:
-            global no_receivers
-            no_receivers    = int(entry.get())
+            no_receivers.set(int(entry.get()))
         if i == DIST:
-            global distance_m
-            distance_m      = float(entry.get())
+            distance_m.set(float(entry.get()))
         if i == TPOWER:
-            global power_db
-            power_db        = float(entry.get())
+            power_db.set(float(entry.get()))
         if i == TGAIN:
-            global trans_gain
-            trans_gain      = float(entry.get())
+            trans_gain.set(float(entry.get()))
         if i == RGAIN:
-            global receiv_gain
-            receiv_gain     = float(entry.get())
+            receiv_gain.set(float(entry.get()))
         if i == FOILAGE:
-            global foilage
-            foilage         = float(entry.get())
+            foilage.set(float(entry.get()))
         if i == TEMP:
-            global temperature
-            temperature     = float(entry.get())
+            temperature.set(float(entry.get()))
         if i == RAIN:
-            global rain
-            rain            = float(entry.get())
+            rain.set(float(entry.get()))
         if i == WEATHER:
-            global weather_att
-            weather_att     = float(entry.get())
+            weather_att.set(float(entry.get()))
         if i == PATHLOSSEXP:
-            global path_loss_exp
-            path_loss_exp   = float(entry.get())
+            path_loss_exp.set(float(entry.get()))
 
 
 def option_func(value):
@@ -298,6 +305,8 @@ button_quit        = Button(master, text="Quit",                 command = maste
 
 
 if __name__ == '__main__':
+
+    set_defaults()
 
     # Prints the ROS table on the right side of the GUI
     set_ros_table()

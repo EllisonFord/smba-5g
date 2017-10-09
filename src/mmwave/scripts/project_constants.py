@@ -80,9 +80,9 @@ defaults = [
 
 
 
-environment = [["Urban LOS", "Urban NLOS", "Rural LOS", "Rural NLOS"],
-               [2.0,            3.2,            2.16,       2.75],
-               [4.0,            7.0,            4.0,        8.0]]
+environment = [["Urban LOS", "Urban NLOS", "Rural LOS", "Rural NLOS"],  # Type of environment
+               [2.0,            3.2,            2.16,       2.75],      # Path loss exponentials?
+               [4.0,            7.0,            4.0,        8.0]]       #
 
 
 colour_even = "light sky blue"
