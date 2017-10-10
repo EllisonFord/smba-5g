@@ -86,7 +86,7 @@ def callback(data):
 
         id.set(data.markers[i].id)
 
-        distance_m.set(round(distance_m, decimal_places))
+        dist_m.set(round(distance_m, decimal_places))
 
         v_data.set(round(1.234, decimal_places))
 
@@ -111,11 +111,9 @@ def check_topic_status():
     global default_topic
     global default_msg_type
 
-    global status_green
-    global status_yellow
-    global status_orange
-    global status_red
 
+    status_icon = StringVar()
+    status_message = StringVar()
 
     topic_list = rospy.get_published_topics()
 
@@ -123,34 +121,31 @@ def check_topic_status():
 
     topic_message_types = [type for (name, type) in topic_list]
 
-    Label(master, text="                                          ", bg=colour     ).grid(row=2, column=2)
+    # Place the initial labels
+    Label(master, image=status_icon,   border=0 ).grid(row=1, column=2)
+    Label(master, text=status_message, bg=colour).grid(row=2, column=2)
 
     if default_topic in topic_names:
         if default_msg_type not in topic_message_types:
-            Label(master, image=status_red, border=0                               ).grid(row=1, column=2)
-            Label(master, text="Unexpected message type", bg=colour                ).grid(row=2, column=2)
+            status_icon.set(status_red)
+            status_message.set("Unexpected message type")
             return False
-
         else:
-            Label(master, image=status_green, border=0                             ).grid(row=1, column=2)
+            status_icon.set(status_green)
             return True
-
     else:
         if topic_list == None:
-
-            Label(master, image=status_yellow, border=0                            ).grid(row=1, column=2)
-            Label(master, text="roscore not running", bg=colour                    ).grid(row=2, column=2)
+            status_icon.set(status_yellow)
+            status_message.set("roscore not running")
             return False
 
         elif default_topic not in topic_list:
-
-             Label(master, image=status_orange, border=0                           ).grid(row=1, column=2)
-             Label(master, text="Default ROS topic not found", bg=colour, width= 25).grid(row=2, column=2)
+             status_icon.set(status_orange)
+             status_message.set("Default ROS topic not found")
              return False
 
         else: # if smba_core.msg.smba_object_list not in topics
-
-            Label(master, image=status_red, border=0                               ).grid(row=1, column=2)
-            Label(master, text="ROS error", bg=colour                              ).grid(row=2, column=2)
+            status_icon.set(status_red)
+            status_message.set("ROS error")
             return False
 
