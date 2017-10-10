@@ -1,0 +1,7 @@
+:path_to_ignore
+.catkin_workspace
+build/
+devel/
+src/CMakeLists.txt
+src/mmwave/scripts/__pycache__/
+
