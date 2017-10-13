@@ -51,7 +51,7 @@ entry_list      = [] # the GUI form entries
 
 
 
-def set_defaults():
+def set_defaults(carrier_freq, freq_band, no_transmitters, no_receivers, distance_m, power_db, trans_gain, receiv_gain, foilage, temperature, rain, weather_att, path_loss_exp, environ_param1, environ_param2):
     # Set variables to default values on commmand
     carrier_freq.set(defaults[CARR_FREQ])
     freq_band.set(defaults[FREQ_BAND])
