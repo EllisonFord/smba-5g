@@ -42,6 +42,12 @@ def set_ros_table():
 
     global vehicle_number
 
+    id.set(0)
+    #dist_m.set(0.0)
+    #v_data.set(0.0)
+    #bandw.set(0.0)
+    #v_type.set("No data.")
+
     for i in range(0, vehicle_number):
 
         if i % 2 == 0:
@@ -49,20 +55,20 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-        Label(master, text="ID",                                bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        Label(master, text="{}".format(id.set(0)),              bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        Label(master, text="ID",                                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        Label(master, textvariable=id,                                  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
-        Label(master, text="Distance to Tx:",                   bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        Label(master, text="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        Label(master, text="Distance to Tx:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        Label(master, textvariable="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        Label(master, text="Vehicle Data:",                     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        Label(master, text="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="Vehicle Data:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        Label(master, textvariable="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="Transfer Speed:",                   bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        Label(master, text="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        Label(master, text="Transfer Speed:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        Label(master, textvariable="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
-        Label(master, text="Vehicle type:",                     bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        Label(master, text="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        Label(master, text="Vehicle type:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        Label(master, textvariable="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
