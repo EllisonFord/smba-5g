@@ -51,7 +51,8 @@ entry_list      = [] # the GUI form entries
 
 
 
-def set_defaults(carrier_freq, freq_band, no_transmitters, no_receivers, distance_m, power_db, trans_gain, receiv_gain, foilage, temperature, rain, weather_att, path_loss_exp, environ_param1, environ_param2):
+def set_defaults():
+#    carrier_freq, freq_band, no_transmitters, no_receivers, distance_m, power_db, trans_gain, receiv_gain, foilage, temperature, rain, weather_att, path_loss_exp, environ_param1, environ_param2
     # Set variables to default values on commmand
     carrier_freq.set(defaults[CARR_FREQ])
     freq_band.set(defaults[FREQ_BAND])
@@ -160,27 +161,24 @@ def plot_func():
     plt.xlabel('distance [m]')
 
     ### Path Loss Plots ###
-
-    pl_exp = 2
-
     # Log Normal w/ Path Loss
     dat1 = []
     for d in d1:
-        dat1.append(path_loss(d, carrier_freq, pl_exp))
+        dat1.append(path_loss(d, carrier_freq, path_loss_exp))
 
     plt.plot(d1, dat1, 'r.', label='Free Space Path Loss')
 
     # Log Normal + Foilage Path Loss
     dat2 = []
     for d in d1:
-        dat2.append(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, foilage))
+        dat2.append(path_loss(d, carrier_freq, path_loss_exp) + foilage_loss(carrier_freq, foilage))
 
     plt.plot(d1, dat2, 'g.', label='PL + Foilage')
 
     # Log Normal + Rain Loss
     dat3 = []
     for d in d1:
-        dat3.append(path_loss(d, carrier_freq, pl_exp) + rain_loss(rain))
+        dat3.append(path_loss(d, carrier_freq, path_loss_exp) + rain_loss(rain))
 
     plt.plot(d1, dat3, 'y.', label='PL + Rain')
 
@@ -195,7 +193,7 @@ def plot_func():
     # for d in d1:
     #    dat10.append(
     #            snr_db(
-    #                friis(path_loss(d, carrier_freq, pl_exp), tx_power_db, 10, 10),
+    #                friis(path_loss(d, carrier_freq, path_loss_exp), tx_power_db, 10, 10),
     #                nyquist_noise(bandwidth)
     #                )
     #            )
@@ -205,7 +203,7 @@ def plot_func():
     # for d in d1:
     #    dat11.append(
     #            snr_db(
-    #                friis(path_loss(d, carrier_freq, pl_exp), tx_power_db, 10, 10) + foilage_loss(carrier_freq, d_foilage),
+    #                friis(path_loss(d, carrier_freq, path_loss_exp), tx_power_db, 10, 10) + foilage_loss(carrier_freq, d_foilage),
     #                nyquist_noise(bandwidth)
     #                )
     #            )
@@ -223,7 +221,7 @@ def plot_func():
         dat4.append(
             shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp), power_db, trans_gain, receiv_gain),
+                                 friis(path_loss(d, carrier_freq, path_loss_exp), power_db, trans_gain, receiv_gain),
                                  nyquist_noise(freq_band, temperature)
                              )
                              )
@@ -237,7 +235,7 @@ def plot_func():
         dat5.append(
             shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp) + foilage_loss(carrier_freq, foilage),
+                                 friis(path_loss(d, carrier_freq, path_loss_exp) + foilage_loss(carrier_freq, foilage),
                                        power_db, trans_gain, receiv_gain),
                                  nyquist_noise(freq_band, temperature)
                              )
@@ -252,7 +250,7 @@ def plot_func():
         dat6.append(
             shannon_capacity(freq_band,
                              snr(
-                                 friis(path_loss(d, carrier_freq, pl_exp) + rain_loss(rain), power_db, trans_gain,
+                                 friis(path_loss(d, carrier_freq, path_loss_exp) + rain_loss(rain), power_db, trans_gain,
                                        receiv_gain),
                                  nyquist_noise(freq_band, temperature)
                              )

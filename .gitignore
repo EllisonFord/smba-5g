@@ -4,4 +4,4 @@ build/
 devel/
 src/CMakeLists.txt
 src/mmwave/scripts/__pycache__/
-
+src/mmwave/scripts/.idea/
