@@ -22,7 +22,7 @@ import os.path as path
 
 master = Tk()
 master.title("5G Network Simulator for Autonomous Vehicles")
-master.geometry("1630x560") # size of the window in px, the width is divided by 1.618 to calculate the height
+master.geometry("1630x600") # size of the window in px, the width is divided by 1.618 to calculate the height
 colour = 'white'
 master.configure(background = colour) # background colour
 button_size = 18
