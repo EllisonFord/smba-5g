@@ -97,7 +97,7 @@ mini_orange = path.join(dir, 'imgs/mini_o.gif')
 mini_red    = path.join(dir, 'imgs/mini_r.gif')
 
 # makes global variables for the check_topic_status() function to use
-status_green =  PhotoImage(file=mini_green)
+status_green  = PhotoImage(file=mini_green)
 status_yellow = PhotoImage(file=mini_yellow)
 status_orange = PhotoImage(file=mini_orange)
-status_red =    PhotoImage(file=mini_red)
+status_red    = PhotoImage(file=mini_red)

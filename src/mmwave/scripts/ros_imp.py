@@ -16,7 +16,11 @@
 
 from model import *
 import numpy as np
-from tkinter import *
+try:
+    from tkinter import * # this is for python3
+except:
+    from Tkinter import *
+
 from model_functions import *
 
 import rospy
