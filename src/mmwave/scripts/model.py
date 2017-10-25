@@ -20,8 +20,12 @@ from project_constants import *
 import matplotlib.pyplot as plt
 import numpy as np
 from ros_imp import *
-from tkinter import *
 from mimo import *
+try:
+    from tkinter import * # this is for python3
+except:
+    from Tkinter import *
+
 
 #TODO: Make the path loss exponent change depending on environmental conditions
 #TODO: Add a return to defaults button
@@ -297,6 +301,8 @@ if __name__ == '__main__':
 
     set_defaults()
 
+    #TODO: if the ROS core is not running, then keep on trying to activate the modules for it
+
     # Prints the ROS table on the right side of the GUI
     set_ros_table()
 
@@ -312,7 +318,7 @@ if __name__ == '__main__':
 
 
     # Runs the GUI and ROS on a loop created by tkinter
-    mainloop()
+    master.mainloop()
 
 
 
