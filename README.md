@@ -6,8 +6,15 @@ This application models a 5G network in the workspace of connected vehicles. The
 ## Required
 Python >= 3.5
 
-numpy
+chmod -x model.py
 
-matplotlib
+sudo apt-get install python3-pip
+sudo apt-get install python3-tk
+pip3 install --upgrade pip
+pip3 install numpy
+pip3 install matplotlib
+pip3 install pyyaml
+pip3 install rospkg
+pip3 install catkin_pkg
 
 #### Known issues
