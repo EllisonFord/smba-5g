@@ -20,8 +20,12 @@ from project_constants import *
 import matplotlib.pyplot as plt
 import numpy as np
 from ros_imp import *
-from tkinter import *
 from mimo import *
+try:
+    from tkinter import * # this is for python3
+except:
+    from Tkinter import *
+
 
 #TODO: Make the path loss exponent change depending on environmental conditions
 #TODO: Add a return to defaults button
