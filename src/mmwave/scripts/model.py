@@ -297,6 +297,8 @@ if __name__ == '__main__':
 
     set_defaults()
 
+    #TODO: if the ROS core is not running, then keep on trying to activate the modules for it
+
     # Prints the ROS table on the right side of the GUI
     set_ros_table()
 
@@ -312,7 +314,7 @@ if __name__ == '__main__':
 
 
     # Runs the GUI and ROS on a loop created by tkinter
-    mainloop()
+    master.mainloop()
 
 
 
