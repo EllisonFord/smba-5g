@@ -52,6 +52,8 @@ def set_ros_table():
     #bandw.set(0.0)
     #v_type.set("No data.")
 
+    #TODO: Each label has to have its own variable, or it won't work when you need to update them.
+
     for i in range(0, vehicle_number):
 
         if i % 2 == 0:
@@ -131,6 +133,7 @@ def check_topic_status():
 
     topic_message_types = [type for (name, type) in topic_list]
 
+    #TODO: These two labels should be called and placed before, then checking on it changes the .set function
     # Place the initial labels
     Label(master, image=status_icon,   border=0 ).grid(row=1, column=2)
     Label(master, text=status_message, bg=colour).grid(row=2, column=2)
@@ -158,4 +161,3 @@ def check_topic_status():
             status_icon.set(status_red)
             status_message.set("ROS error")
             return False
-
