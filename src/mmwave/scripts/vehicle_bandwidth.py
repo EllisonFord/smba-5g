@@ -14,7 +14,7 @@
 #
 #
 
-from .model import *
+from model import *
 
 def vehicles_bandwidth(vehicles, distance_to_tx):
 

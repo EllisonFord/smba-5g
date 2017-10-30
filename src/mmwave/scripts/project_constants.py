@@ -15,12 +15,16 @@
 #
 
 
-from .model import *
-from tkinter import *
+from model import *
 import os.path as path
+try:
+    import tkinter
+#    from tkinter import * # python3
+except:
+    import Tkinter as tkinter # python2
+#    from Tkinter import *
 
-
-master = Tk()
+master = tkinter.Tk()
 master.title("5G Network Simulator for Autonomous Vehicles")
 master.geometry("1630x600") # size of the window in px, the width is divided by 1.618 to calculate the height
 colour = 'white'
@@ -97,7 +101,7 @@ mini_orange = path.join(dir, 'imgs/mini_o.gif')
 mini_red    = path.join(dir, 'imgs/mini_r.gif')
 
 # makes global variables for the check_topic_status() function to use
-status_green  = PhotoImage(file=mini_green)
-status_yellow = PhotoImage(file=mini_yellow)
-status_orange = PhotoImage(file=mini_orange)
-status_red    = PhotoImage(file=mini_red)
+status_green  = tkinter.PhotoImage(file=mini_green)
+status_yellow = tkinter.PhotoImage(file=mini_yellow)
+status_orange = tkinter.PhotoImage(file=mini_orange)
+status_red    = tkinter.PhotoImage(file=mini_red)
