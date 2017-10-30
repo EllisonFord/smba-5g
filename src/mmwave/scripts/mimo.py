@@ -15,7 +15,7 @@
 #
 
 
-from model import *
+from .model import *
 import numpy as np
 import matplotlib.pyplot as plt
 

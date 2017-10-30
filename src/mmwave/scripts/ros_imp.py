@@ -14,14 +14,14 @@
 #
 #
 
-from model import *
+from .model import *
 import numpy as np
 try:
     from tkinter import * # this is for python3
 except:
     from Tkinter import *
 
-from model_functions import *
+from .model_functions import *
 
 import rospy
 from visualization_msgs.msg import MarkerArray

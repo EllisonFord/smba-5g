@@ -15,7 +15,7 @@
 #
 
 
-from model import *
+from .model import *
 from tkinter import *
 import os.path as path
 

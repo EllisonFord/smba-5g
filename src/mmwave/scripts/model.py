@@ -15,12 +15,12 @@
 #
 # Order of the imports affects behaviour
 
-from model_functions import *
-from project_constants import *
+from .model_functions import *
+from .project_constants import *
 import matplotlib.pyplot as plt
 import numpy as np
-from ros_imp import *
-from mimo import *
+from .ros_imp import *
+from .mimo import *
 try:
     from tkinter import * # this is for python3
 except:
