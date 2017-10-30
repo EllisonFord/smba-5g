@@ -40,6 +40,8 @@ bandw  = DoubleVar()
 v_type = StringVar()
 v_data = DoubleVar()
 
+vehicle_data = [[id, dist_m, bandw, v_type, v_data], [id, dist_m, bandw, v_type, v_data], []]
+
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
 def set_ros_table():
@@ -47,12 +49,14 @@ def set_ros_table():
     global vehicle_number
 
     id.set(0)
-    #dist_m.set(0.0)
-    #v_data.set(0.0)
-    #bandw.set(0.0)
-    #v_type.set("No data.")
+    dist_m.set(0.0)
+    v_data.set(0.0)
+    bandw.set(0.0)
+    v_type.set("No data.")
 
     #TODO: Each label has to have its own variable, or it won't work when you need to update them.
+
+    #create here a list that has as many items as the number of vehicles
 
     for i in range(0, vehicle_number):
 
@@ -61,20 +65,20 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-        Label(master, text="ID",                                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        Label(master, textvariable=id,                                  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        Label(master, text="ID",                                                    bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        Label(master, textvariable=vehicle_data[i][ID],                             bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
-        Label(master, text="Distance to Tx:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        Label(master, textvariable="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        Label(master, text="Distance to Tx:",                                       bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        Label(master, textvariable="{} m".format(vehicle_data[i][DIST_M]),          bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        Label(master, text="Vehicle Data:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        Label(master, textvariable="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        Label(master, text="Vehicle Data:",                                         bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        Label(master, textvariable="{} Gbit/s".format(vehicle_data[i][TRANSF_D]),   bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        Label(master, text="Transfer Speed:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        Label(master, textvariable="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        Label(master, text="Transfer Speed:",                                       bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        Label(master, textvariable="{} Gbit/s".format(vehicle_data[i][BANDW]),      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
-        Label(master, text="Vehicle type:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        Label(master, textvariable="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        Label(master, text="Vehicle type:",                                         bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        Label(master, textvariable="{}".format(vehicle_data[i][V_TYPE]),            bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
