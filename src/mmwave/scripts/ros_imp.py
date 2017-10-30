@@ -17,9 +17,11 @@
 from model import *
 import numpy as np
 try:
-    from tkinter import * # this is for python3
+    import tkinter
+#    from tkinter import * # python3
 except:
-    from Tkinter import *
+    import Tkinter as tkinter # python2
+#    from Tkinter import *
 
 from model_functions import *
 
@@ -34,11 +36,11 @@ default_msg_type = "visualization_msgs/MarkerArray"
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
 
-id     = IntVar()
-dist_m = DoubleVar()
-bandw  = DoubleVar()
-v_type = StringVar()
-v_data = DoubleVar()
+id     = tkinter.IntVar()
+dist_m = tkinter.DoubleVar()
+bandw  = tkinter.DoubleVar()
+v_type = tkinter.StringVar()
+v_data = tkinter.DoubleVar()
 
 vehicle_data = [[id, dist_m, bandw, v_type, v_data], [id, dist_m, bandw, v_type, v_data], []]
 
@@ -65,6 +67,7 @@ def set_ros_table():
         else:
             colour = colour_odd
 
+<<<<<<< HEAD
         Label(master, text="ID",                                                    bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
         Label(master, textvariable=vehicle_data[i][ID],                             bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
@@ -79,6 +82,22 @@ def set_ros_table():
 
         Label(master, text="Vehicle type:",                                         bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
         Label(master, textvariable="{}".format(vehicle_data[i][V_TYPE]),            bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+=======
+        tkinter.Label(master, text="ID",                                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        tkinter.Label(master, textvariable=id,                                  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+
+        tkinter.Label(master, text="Distance to Tx:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        tkinter.Label(master, textvariable="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+
+        tkinter.Label(master, text="Vehicle Data:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        tkinter.Label(master, textvariable="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+
+        tkinter.Label(master, text="Transfer Speed:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        tkinter.Label(master, textvariable="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+
+        tkinter.Label(master, text="Vehicle type:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        tkinter.Label(master, textvariable="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+>>>>>>> 5f57d3ac0e2bff0a64c671fe057112e259fc94bc
 
 
 
@@ -128,8 +147,8 @@ def check_topic_status():
     global default_msg_type
 
 
-    status_icon = StringVar()
-    status_message = StringVar()
+    status_icon = tkinter.StringVar()
+    status_message = tkinter.StringVar()
 
     topic_list = rospy.get_published_topics()
 
@@ -139,8 +158,8 @@ def check_topic_status():
 
     #TODO: These two labels should be called and placed before, then checking on it changes the .set function
     # Place the initial labels
-    Label(master, image=status_icon,   border=0 ).grid(row=1, column=2)
-    Label(master, text=status_message, bg=colour).grid(row=2, column=2)
+    tkinter.Label(master, image=status_icon,   border=0 ).grid(row=1, column=2)
+    tkinter.Label(master, text=status_message, bg=colour).grid(row=2, column=2)
 
     if default_topic in topic_names:
         if default_msg_type not in topic_message_types:

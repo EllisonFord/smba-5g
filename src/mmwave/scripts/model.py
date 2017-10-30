@@ -22,9 +22,11 @@ import numpy as np
 from ros_imp import *
 from mimo import *
 try:
-    from tkinter import * # this is for python3
+    import tkinter
+#    from tkinter import * # python3
 except:
-    from Tkinter import *
+    import Tkinter as tkinter # python2
+#    from Tkinter import *
 
 
 #TODO: Make the path loss exponent change depending on environmental conditions
@@ -36,21 +38,21 @@ except:
 
 
 # Global variables created
-carrier_freq    = DoubleVar()
-freq_band       = DoubleVar()
-no_transmitters = IntVar()
-no_receivers    = IntVar()
-distance_m      = DoubleVar()
-power_db        = DoubleVar()
-trans_gain      = DoubleVar()
-receiv_gain     = DoubleVar()
-foilage         = DoubleVar()
-temperature     = DoubleVar()
-rain            = DoubleVar()
-weather_att     = DoubleVar()
-path_loss_exp   = DoubleVar()
-environ_param1  = DoubleVar()
-environ_param2  = DoubleVar()
+carrier_freq    = tkinter.DoubleVar()
+freq_band       = tkinter.DoubleVar()
+no_transmitters = tkinter.IntVar()
+no_receivers    = tkinter.IntVar()
+distance_m      = tkinter.DoubleVar()
+power_db        = tkinter.DoubleVar()
+trans_gain      = tkinter.DoubleVar()
+receiv_gain     = tkinter.DoubleVar()
+foilage         = tkinter.DoubleVar()
+temperature     = tkinter.DoubleVar()
+rain            = tkinter.DoubleVar()
+weather_att     = tkinter.DoubleVar()
+path_loss_exp   = tkinter.DoubleVar()
+environ_param1  = tkinter.DoubleVar()
+environ_param2  = tkinter.DoubleVar()
 entry_list      = [] # the GUI form entries
 
 
@@ -270,20 +272,20 @@ def plot_func():
 
 
 
-logo       = PhotoImage(file=white_logo)
-logo_panel = Label(master, image=logo, border=0).grid(row = 0, column = 2)
+logo       = tkinter.PhotoImage(file=white_logo)
+logo_panel = tkinter.Label(master, image=logo, border=0).grid(row = 0, column = 2)
 
 
 
 # Fill in Col = 0 with labels and Col = 1 with Entry fields
 for i, label in enumerate(labels):
-    Label(master, text=label, bg=colour, height = 1, width = 27).grid(row=i+1, column=0) # Place labels on column 0
+    tkinter.Label(master, text=label, bg=colour, height = 1, width = 27).grid(row=i+1, column=0) # Place labels on column 0
     if i == len(labels) - 1:
-       o = OptionMenu(master, StringVar(), *environment[0], command=option_func)
+       o = tkinter.OptionMenu(master, tkinter.StringVar(), *environment[0], command=option_func)
        o.config(width = 16)
        o.grid(row = i+1, column = 1)
     else:
-        e = Entry(master, textvariable=StringVar(), width=20)
+        e = tkinter.Entry(master, textvariable=tkinter.StringVar(), width=20)
         e.grid(row = i+1, column = 1)
         e.insert(0, defaults[i])    # index, default values
         entry_list.append(e) # add the entry to the entry_list array so that it may be used in other parts of the app
@@ -291,9 +293,9 @@ for i, label in enumerate(labels):
 
 
 
-button_ros_display = Button(master, text="Submit to ROS",        command = userinput,   height = 0,  width = button_size).grid(row = len(labels)+1, column = 1, padx=0, pady=10)
-button_plot        = Button(master, text="Tower-Receiver Plot",  command = plot_func,   height = 0,  width = button_size).grid(row = len(labels)+2, column = 1, padx=0, pady=0)
-button_quit        = Button(master, text="Quit",                 command = master.quit, height = 1,  width = 15         ).grid(row = len(labels)+3, column = 2, padx=0, pady=100)
+button_ros_display = tkinter.Button(master, text="Submit to ROS",        command = userinput,   height = 0,  width = button_size).grid(row = len(labels)+1, column = 1, padx=0, pady=10)
+button_plot        = tkinter.Button(master, text="Tower-Receiver Plot",  command = plot_func,   height = 0,  width = button_size).grid(row = len(labels)+2, column = 1, padx=0, pady=0)
+button_quit        = tkinter.Button(master, text="Quit",                 command = master.quit, height = 1,  width = 15         ).grid(row = len(labels)+3, column = 2, padx=0, pady=100)
 
 
 
