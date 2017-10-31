@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 #  _____ _   _ __  __
 # |_   _| | | |  \/  |
@@ -23,10 +22,8 @@ from ros_imp import *
 from mimo import *
 try:
     import tkinter
-#    from tkinter import * # python3
 except:
     import Tkinter as tkinter # python2
-#    from Tkinter import *
 
 
 #TODO: Make the path loss exponent change depending on environmental conditions
@@ -159,7 +156,7 @@ def plot_func():
 
     userinput()
 
-    d1 = np.arange(10, distance_m, 10)  # start 0, end 400, step 10
+    d1 = np.arange(10, 400, 10)  # start 0, end 400, step 10
 
     plt.figure(1)
     plt.subplot(211)

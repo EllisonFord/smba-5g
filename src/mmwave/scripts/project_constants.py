@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 #  _____ _   _ __  __
 # |_   _| | | |  \/  |
@@ -17,12 +16,11 @@
 
 from model import *
 import os.path as path
+from PIL import Image, ImageTk
 try:
     import tkinter
-#    from tkinter import * # python3
 except:
     import Tkinter as tkinter # python2
-#    from Tkinter import *
 
 master = tkinter.Tk()
 master.title("5G Network Simulator for Autonomous Vehicles")
@@ -101,7 +99,13 @@ mini_orange = path.join(dir, 'imgs/mini_o.gif')
 mini_red    = path.join(dir, 'imgs/mini_r.gif')
 
 # makes global variables for the check_topic_status() function to use
-status_green  = tkinter.PhotoImage(file=mini_green)
-status_yellow = tkinter.PhotoImage(file=mini_yellow)
-status_orange = tkinter.PhotoImage(file=mini_orange)
-status_red    = tkinter.PhotoImage(file=mini_red)
+status_green  = ImageTk.PhotoImage(Image.open(mini_green))
+status_yellow = ImageTk.PhotoImage(Image.open(mini_yellow))
+status_orange = ImageTk.PhotoImage(Image.open(mini_orange))
+status_red    = ImageTk.PhotoImage(Image.open(mini_red))
+status_icon = status_yellow
+
+#status_yellow = tkinter.PhotoImage(file=mini_yellow)
+#status_orange = tkinter.PhotoImage(file=mini_orange)
+#status_red    = tkinter.PhotoImage(file=mini_red)
+

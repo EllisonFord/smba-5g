@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 #  _____ _   _ __  __
 # |_   _| | | |  \/  |
@@ -18,10 +17,8 @@ from model import *
 import numpy as np
 try:
     import tkinter
-#    from tkinter import * # python3
 except:
     import Tkinter as tkinter # python2
-#    from Tkinter import *
 
 from model_functions import *
 
@@ -50,6 +47,8 @@ def set_ros_table():
 
     global vehicle_number
 
+    print("Drawing the table for " + str(vehicle_number) + " vehicle/s.")
+
     id.set(0)
     dist_m.set(0.0)
     v_data.set(0.0)
@@ -67,21 +66,20 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-
         tkinter.Label(master, text="ID",                                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
         tkinter.Label(master, textvariable=id,                                  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
         tkinter.Label(master, text="Distance to Tx:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        tkinter.Label(master, textvariable="{} m".format(dist_m.set(0.0)),      bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        tkinter.Label(master, textvariable=dist_m.set,                          bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
         tkinter.Label(master, text="Vehicle Data:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        tkinter.Label(master, textvariable="{} Gbit/s".format(v_data.set(0.0)), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        tkinter.Label(master, textvariable=v_data.set,                          bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
         tkinter.Label(master, text="Transfer Speed:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        tkinter.Label(master, textvariable="{} Gbit/s".format(bandw.set(0.0)),  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        tkinter.Label(master, textvariable=bandw.set,                           bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
         tkinter.Label(master, text="Vehicle type:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        tkinter.Label(master, textvariable="{}".format(v_type.set("No data.")), bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        tkinter.Label(master, textvariable=v_type,                              bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
@@ -90,6 +88,7 @@ def callback(data):
 
     # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
     check_topic_status()
+    c = 0
 
     global vehicle_number
 
@@ -100,13 +99,14 @@ def callback(data):
 
     for i, vehicle in enumerate(data.markers):
 
-        distance_m.set(np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y))
+        distance_calculation = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)/1000
+#        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)/1000
+        c = c + 1
 
         id.set(data.markers[i].id)
 
-        dist_m.set(round(distance_m, decimal_places))
+        dist_m.set(round(distance_calculation, decimal_places))
 
         v_data.set(round(1.234, decimal_places))
 
@@ -130,9 +130,9 @@ def check_topic_status():
 
     global default_topic
     global default_msg_type
+    global status_icon
 
-
-    status_icon = tkinter.StringVar()
+    #print("Checking ROS status.")
     status_message = tkinter.StringVar()
 
     topic_list = rospy.get_published_topics()
@@ -143,29 +143,32 @@ def check_topic_status():
 
     #TODO: These two labels should be called and placed before, then checking on it changes the .set function
     # Place the initial labels
-    tkinter.Label(master, image=status_icon,   border=0 ).grid(row=1, column=2)
-    tkinter.Label(master, text=status_message, bg=colour).grid(row=2, column=2)
+    tkinter.Label(master, image=status_icon,   border=0          ).grid(row=1, column=2)
+    tkinter.Label(master, textvariable=status_message, bg='white').grid(row=2, column=2)
+
+
 
     if default_topic in topic_names:
         if default_msg_type not in topic_message_types:
-            status_icon.set(status_red)
+            status_icon = status_red
             status_message.set("Unexpected message type")
             return False
         else:
-            status_icon.set(status_green)
+            status_icon = status_green
+            status_message.set("                        ")
             return True
     else:
         if topic_list == None:
-            status_icon.set(status_yellow)
+            status_icon = status_yellow
             status_message.set("roscore not running")
             return False
 
         elif default_topic not in topic_list:
-             status_icon.set(status_orange)
-             status_message.set("Default ROS topic not found")
-             return False
+            status_icon = status_orange
+            status_message.set("Default ROS topic not found")
+            return False
 
         else: # if smba_core.msg.smba_object_list not in topics
-            status_icon.set(status_red)
+            status_icon = status_red
             status_message.set("ROS error")
             return False
