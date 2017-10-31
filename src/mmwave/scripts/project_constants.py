@@ -104,8 +104,3 @@ status_yellow = ImageTk.PhotoImage(Image.open(mini_yellow))
 status_orange = ImageTk.PhotoImage(Image.open(mini_orange))
 status_red    = ImageTk.PhotoImage(Image.open(mini_red))
 status_icon = status_yellow
-
-#status_yellow = tkinter.PhotoImage(file=mini_yellow)
-#status_orange = tkinter.PhotoImage(file=mini_orange)
-#status_red    = tkinter.PhotoImage(file=mini_red)
-

@@ -141,7 +141,6 @@ def check_topic_status():
 
     topic_message_types = [type for (name, type) in topic_list]
 
-    #TODO: These two labels should be called and placed before, then checking on it changes the .set function
     # Place the initial labels
     tkinter.Label(master, image=status_icon,   border=0          ).grid(row=1, column=2)
     tkinter.Label(master, textvariable=status_message, bg='white').grid(row=2, column=2)
@@ -155,7 +154,7 @@ def check_topic_status():
             return False
         else:
             status_icon = status_green
-            status_message.set("                        ")
+            status_message.set("                        ") #TODO: Improve this to a remove statement
             return True
     else:
         if topic_list == None:
