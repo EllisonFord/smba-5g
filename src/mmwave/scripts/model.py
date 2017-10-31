@@ -167,21 +167,21 @@ def plot_func():
     # Log Normal w/ Path Loss
     dat1 = []
     for d in d1:
-        dat1.append(path_loss(d, carrier_freq, path_loss_exp))
+        dat1.append(path_loss(d, carrier_freq.get(), path_loss_exp.get()))
 
     plt.plot(d1, dat1, 'r.', label='Free Space Path Loss')
 
     # Log Normal + Foilage Path Loss
     dat2 = []
     for d in d1:
-        dat2.append(path_loss(d, carrier_freq, path_loss_exp) + foilage_loss(carrier_freq, foilage))
+        dat2.append(path_loss(d, carrier_freq.get(), path_loss_exp.get()) + foilage_loss(carrier_freq.get(), foilage.get()))
 
     plt.plot(d1, dat2, 'g.', label='PL + Foilage')
 
     # Log Normal + Rain Loss
     dat3 = []
     for d in d1:
-        dat3.append(path_loss(d, carrier_freq, path_loss_exp) + rain_loss(rain))
+        dat3.append(path_loss(d, carrier_freq.get(), path_loss_exp.get()) + rain_loss(rain.get()))
 
     plt.plot(d1, dat3, 'y.', label='PL + Rain')
 
@@ -222,10 +222,10 @@ def plot_func():
     dat4 = []
     for d in d1:
         dat4.append(
-            shannon_capacity(freq_band,
+            shannon_capacity(freq_band.get(),
                              snr(
-                                 friis(path_loss(d, carrier_freq, path_loss_exp), power_db, trans_gain, receiv_gain),
-                                 nyquist_noise(freq_band, temperature)
+                                 friis(path_loss(d, carrier_freq.get(), path_loss_exp.get()), power_db.get(), trans_gain.get(), receiv_gain.get()),
+                                 nyquist_noise(freq_band.get(), temperature.get())
                              )
                              )
         )
@@ -236,11 +236,11 @@ def plot_func():
     dat5 = []
     for d in d1:
         dat5.append(
-            shannon_capacity(freq_band,
+            shannon_capacity(freq_band.get(),
                              snr(
-                                 friis(path_loss(d, carrier_freq, path_loss_exp) + foilage_loss(carrier_freq, foilage),
-                                       power_db, trans_gain, receiv_gain),
-                                 nyquist_noise(freq_band, temperature)
+                                 friis(path_loss(d, carrier_freq.get(), path_loss_exp.get()) + foilage_loss(carrier_freq.get(), foilage.get()),
+                                       power_db.get(), trans_gain.get(), receiv_gain.get()),
+                                 nyquist_noise(freq_band.get(), temperature.get())
                              )
                              )
         )
@@ -251,11 +251,11 @@ def plot_func():
     dat6 = []
     for d in d1:
         dat6.append(
-            shannon_capacity(freq_band,
+            shannon_capacity(freq_band.get(),
                              snr(
-                                 friis(path_loss(d, carrier_freq, path_loss_exp) + rain_loss(rain), power_db, trans_gain,
-                                       receiv_gain),
-                                 nyquist_noise(freq_band, temperature)
+                                 friis(path_loss(d, carrier_freq.get(), path_loss_exp.get()) + rain_loss(rain.get()), power_db.get(), trans_gain.get(),
+                                       receiv_gain.get()),
+                                 nyquist_noise(freq_band.get(), temperature.get())
                              )
                              )
         )
@@ -270,7 +270,7 @@ def plot_func():
 
 
 logo       = tkinter.PhotoImage(file=white_logo)
-logo_panel = tkinter.Label(master, image=logo, border=0).grid(row = 0, column = 2)
+logo_panel = tkinter.Label(master, image=logo, border=0).grid(row=0, column=2)
 
 
 
@@ -279,20 +279,20 @@ for i, label in enumerate(labels):
     tkinter.Label(master, text=label, bg=colour, height = 1, width = 27).grid(row=i+1, column=0) # Place labels on column 0
     if i == len(labels) - 1:
        o = tkinter.OptionMenu(master, tkinter.StringVar(), *environment[0], command=option_func)
-       o.config(width = 16)
-       o.grid(row = i+1, column = 1)
+       o.config(width=16)
+       o.grid(row=i+1, column=1)
     else:
         e = tkinter.Entry(master, textvariable=tkinter.StringVar(), width=20)
-        e.grid(row = i+1, column = 1)
+        e.grid(row=i+1, column=1)
         e.insert(0, defaults[i])    # index, default values
         entry_list.append(e) # add the entry to the entry_list array so that it may be used in other parts of the app
 
 
 
 
-button_ros_display = tkinter.Button(master, text="Submit to ROS",        command = userinput,   height = 0,  width = button_size).grid(row = len(labels)+1, column = 1, padx=0, pady=10)
-button_plot        = tkinter.Button(master, text="Tower-Receiver Plot",  command = plot_func,   height = 0,  width = button_size).grid(row = len(labels)+2, column = 1, padx=0, pady=0)
-button_quit        = tkinter.Button(master, text="Quit",                 command = master.quit, height = 1,  width = 15         ).grid(row = len(labels)+3, column = 2, padx=0, pady=100)
+button_ros_display = tkinter.Button(master, text="Submit to ROS",        command=userinput,   height=0,  width=button_size).grid(row=len(labels)+1, column=1, padx=0, pady=10)
+button_plot        = tkinter.Button(master, text="Tower-Receiver Plot",  command=plot_func,   height=0,  width=button_size).grid(row=len(labels)+2, column=1, padx=0, pady=0)
+button_quit        = tkinter.Button(master, text="Quit",                 command=master.quit, height=1,  width=15         ).grid(row=len(labels)+3, column=2, padx=0, pady=100)
 
 
 

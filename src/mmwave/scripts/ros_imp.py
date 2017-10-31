@@ -66,20 +66,20 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-        tkinter.Label(master, text="ID",                                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        tkinter.Label(master, textvariable=id,                                  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        tkinter.Label(master, text="ID",                 bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        tkinter.Label(master, textvariable=id,           bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
-        tkinter.Label(master, text="Distance to Tx:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        tkinter.Label(master, textvariable=dist_m.set,                          bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        tkinter.Label(master, text="Distance to Tx:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        tkinter.Label(master, textvariable=dist_m,       bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        tkinter.Label(master, text="Vehicle Data:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
-        tkinter.Label(master, textvariable=v_data.set,                          bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        tkinter.Label(master, text="Vehicle Data:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        tkinter.Label(master, textvariable=v_data,       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        tkinter.Label(master, text="Transfer Speed:",                           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        tkinter.Label(master, textvariable=bandw.set,                           bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        tkinter.Label(master, text="Transfer Speed:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        tkinter.Label(master, textvariable=bandw,        bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
-        tkinter.Label(master, text="Vehicle type:",                             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        tkinter.Label(master, textvariable=v_type,                              bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        tkinter.Label(master, text="Vehicle type:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        tkinter.Label(master, textvariable=v_type,       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
@@ -88,7 +88,6 @@ def callback(data):
 
     # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
     check_topic_status()
-    c = 0
 
     global vehicle_number
 
@@ -99,11 +98,18 @@ def callback(data):
 
     for i, vehicle in enumerate(data.markers):
 
+        # Calculations
         distance_calculation = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-#        c = calculate_Channel_Capacity(snr(friis(path_loss(distance_m, carrier_freq, path_loss_exp) + rain_loss(rain) + foilage_loss(carrier_freq, foilage), power_db, trans_gain, receiv_gain), nyquist_noise(freq_band, temperature)), no_transmitters, no_receivers, freq_band)/1000
-        c = c + 1
+        path_loss_result = path_loss(distance_m.get(), carrier_freq.get(), path_loss_exp.get())
 
+        friss_result = friis(path_loss_result + rain_loss(rain.get()) + foilage_loss(carrier_freq.get(), foilage.get()), power_db.get(), trans_gain.get(), receiv_gain.get())
+
+        snr_result = snr(friss_result, nyquist_noise(freq_band.get(), temperature.get()))
+
+        c = calculate_Channel_Capacity(avg_SNR=snr_result, nT=no_transmitters.get(), nR=no_receivers.get(), f_Bandwidth=freq_band.get()) / 1000
+
+        # Setting the labels
         id.set(data.markers[i].id)
 
         dist_m.set(round(distance_calculation, decimal_places))
@@ -119,7 +125,7 @@ def callback(data):
 
 def listener():
 
-    rospy.init_node('mmWaveNode', anonymous = True)
+    rospy.init_node('mmWave_node', anonymous=True)
 
     rospy.Subscriber(default_topic, MarkerArray, callback)
 
