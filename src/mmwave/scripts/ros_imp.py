@@ -33,13 +33,15 @@ default_msg_type = "visualization_msgs/MarkerArray"
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
 
+"""
 id     = tkinter.IntVar()
 dist_m = tkinter.DoubleVar()
 bandw  = tkinter.DoubleVar()
 v_type = tkinter.StringVar()
 v_data = tkinter.DoubleVar()
+"""
 
-vehicle_data = [[id, dist_m, bandw, v_type, v_data], [id, dist_m, bandw, v_type, v_data], []]
+#vehicle_data = [[id, dist_m, bandw, v_type, v_data], [id, dist_m, bandw, v_type, v_data], []]
 
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
@@ -49,7 +51,7 @@ def set_ros_table():
 
     print("Drawing the table for " + str(vehicle_number) + " vehicle/s.")
 
-    id.set(0)
+    id_var.set(0)
     dist_m.set(0.0)
     v_data.set(0.0)
     bandw.set(0.0)
@@ -67,12 +69,12 @@ def set_ros_table():
             colour = colour_odd
 
         tkinter.Label(master, text="ID",                 bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        tkinter.Label(master, textvariable=id,           bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        tkinter.Label(master, textvariable=id_var,       bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
         tkinter.Label(master, text="Distance to Tx:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
         tkinter.Label(master, textvariable=dist_m,       bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        tkinter.Label(master, text="Vehicle Data:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8) # how much data the vehicle wants to offload to the grid
+        tkinter.Label(master, text="Vehicle Data:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8)  # how much data the vehicle wants to offload to the grid
         tkinter.Label(master, textvariable=v_data,       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
         tkinter.Label(master, text="Transfer Speed:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
@@ -96,21 +98,30 @@ def callback(data):
         vehicle_number = len(data.markers)
         set_ros_table()
 
+
+    if default_msg_type == "visualization_msgs/MarkerArray":
+        pass # take the variables into a list
+    elif default_msg_type == "smba/smba_object_list":
+        pass # take the variables into a list
+    else:
+        pass
+
+
     for i, vehicle in enumerate(data.markers):
 
         # Calculations
         distance_calculation = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-        path_loss_result = path_loss(distance_m.get(), carrier_freq.get(), path_loss_exp.get())
+        path_loss_result = path_loss(tr_distance=distance_calculation, carrier_freq=carrier_freq.get(), pl_exponent=path_loss_exp.get())
 
-        friss_result = friis(path_loss_result + rain_loss(rain.get()) + foilage_loss(carrier_freq.get(), foilage.get()), power_db.get(), trans_gain.get(), receiv_gain.get())
+        friss_result = friis(losses=(path_loss_result + rain_loss(rain.get()) + foilage_loss(carrier_freq.get(), foilage.get())), tx_power=power_db.get(), tx_gain=trans_gain.get(), rx_gain=receiv_gain.get())
 
-        snr_result = snr(friss_result, nyquist_noise(freq_band.get(), temperature.get()))
+        snr_result = snr(signal=friss_result, noise=(nyquist_noise(freq_band.get(), temperature.get())))
 
         c = calculate_Channel_Capacity(avg_SNR=snr_result, nT=no_transmitters.get(), nR=no_receivers.get(), f_Bandwidth=freq_band.get()) / 1000
 
         # Setting the labels
-        id.set(data.markers[i].id)
+        id_var.set(data.markers[i].id)
 
         dist_m.set(round(distance_calculation, decimal_places))
 
@@ -152,7 +163,6 @@ def check_topic_status():
     tkinter.Label(master, textvariable=status_message, bg='white').grid(row=2, column=2)
 
 
-
     if default_topic in topic_names:
         if default_msg_type not in topic_message_types:
             status_icon = status_red
@@ -160,7 +170,7 @@ def check_topic_status():
             return False
         else:
             status_icon = status_green
-            status_message.set("                        ") #TODO: Improve this to a remove statement
+            status_message.set("                                 ") #TODO: Improve this to a remove statement
             return True
     else:
         if topic_list == None:
