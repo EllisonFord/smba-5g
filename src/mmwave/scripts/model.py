@@ -34,6 +34,101 @@ except:
 #TODO: Weather/Environment attenuation factor: Figure out where you got it from
 
 
+# Global variables created and set to default values
+carrier_freq    = defaults[CARR_FREQ]
+freq_band       = defaults[FREQ_BAND]
+no_transmitters = defaults[NT]
+no_receivers    = defaults[NR]
+distance_m      = defaults[DIST]
+power_db        = defaults[TPOWER]
+trans_gain      = defaults[TGAIN]
+receiv_gain     = defaults[RGAIN]
+foilage         = defaults[FOILAGE]
+temperature     = defaults[TEMP]
+rain            = defaults[RAIN]
+weather_att     = defaults[WEATHER]
+path_loss_exp   = defaults[PATHLOSSEXP]
+environ_param1  = environment[1][0]
+environ_param2  = environment[2][0]
+
+entry_list      = [] # the GUI form entries
+
+
+def set_defaults():
+    global carrier_freq
+    carrier_freq = defaults[CARR_FREQ]
+    global freq_band
+    freq_band = defaults[FREQ_BAND]
+    global no_transmitters
+    no_transmitters = defaults[NT]
+    global no_receivers
+    no_receivers = defaults[NR]
+    global distance_m
+    distance_m = defaults[DIST]
+    global power_db
+    power_db = defaults[TPOWER]
+    global foilage
+    foilage = defaults[FOILAGE]
+    global temperature
+    temperature = defaults[TEMP]
+    global rain
+    rain = defaults[RAIN]
+    global weather_att
+    weather_att = defaults[WEATHER]
+    global path_loss_exp
+    path_loss_exp = defaults[PATHLOSSEXP]
+    global environ_param1
+    environ_param1 = environment[1][0]
+    global environ_param2
+    environ_param2 = environment[2][0]
+
+# reads the input of the user and saves it as a global variable
+def userinput():
+
+    check_topic_status() # Checks if ROS is running and if the published topic can be heard, it also changes the icon in the GUI
+
+    for i, entry in enumerate(entry_list):
+        if i == CARR_FREQ:
+            global carrier_freq
+            carrier_freq    = float(entry.get())
+        if i == FREQ_BAND:
+            global freq_band
+            freq_band       = float(entry.get())
+        if i == NT:
+            global no_transmitters
+            no_transmitters = int(entry.get())
+        if i == NR:
+            global no_receivers
+            no_receivers    = int(entry.get())
+        if i == DIST:
+            global distance_m
+            distance_m      = float(entry.get())
+        if i == TPOWER:
+            global power_db
+            power_db        = float(entry.get())
+        if i == TGAIN:
+            global trans_gain
+            trans_gain      = float(entry.get())
+        if i == RGAIN:
+            global receiv_gain
+            receiv_gain     = float(entry.get())
+        if i == FOILAGE:
+            global foilage
+            foilage         = float(entry.get())
+        if i == TEMP:
+            global temperature
+            temperature     = float(entry.get())
+        if i == RAIN:
+            global rain
+            rain            = float(entry.get())
+        if i == WEATHER:
+            global weather_att
+            weather_att     = float(entry.get())
+        if i == PATHLOSSEXP:
+            global path_loss_exp
+            path_loss_exp   = float(entry.get())
+
+"""
 # Global variables created
 carrier_freq    = tkinter.DoubleVar()
 freq_band       = tkinter.DoubleVar()
@@ -106,7 +201,7 @@ def userinput():
             weather_att.set(float(entry.get()))
         if i == PATHLOSSEXP:
             path_loss_exp.set(float(entry.get()))
-
+"""
 
 def option_func(value):
     if value == "Urban LOS":
