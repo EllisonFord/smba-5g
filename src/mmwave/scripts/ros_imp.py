@@ -101,29 +101,19 @@ def callback(data):
         # Calculations
         distance_calculation = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-        print("distance_calc:",distance_calculation, "carrier_freq:", carrier_freq, "path_loss_exp:",path_loss_exp)
+        path_loss_result = path_loss(tr_distance=distance_calculation, carrier_freq= float(carrier_freq), pl_exponent= float(path_loss_exp))
 
-        path_loss_result = path_loss(tr_distance=distance_calculation, carrier_freq=carrier_freq, pl_exponent=path_loss_exp)
+        friss_result = friis(losses=(path_loss_result + rain_loss(rain) + foilage_loss(carrier_freq, foilage)), tx_power=power_db, tx_gain=trans_gain, rx_gain=receiv_gain)
 
-        print("path_loss: ", path_loss_result)
+        snr_result = snr(signal=friss_result, noise=(nyquist_noise(freq_band, temperature)))
 
-        friss_result = friis(losses=(path_loss_result + rain_loss(rain.get()) + foilage_loss(carrier_freq.get(), foilage.get())), tx_power=power_db.get(), tx_gain=trans_gain.get(), rx_gain=receiv_gain.get())
-
-        print("friss: ", friss_result)
-
-        #snr_result = snr(signal=friss_result, noise=(nyquist_noise(freq_band.get(), temperature.get())))
-
-        #c = calculate_Channel_Capacity(snr_result, no_transmitters.get(), no_receivers.get(), freq_band.get()) / 1000
-
-
-
-        #print(snr_result, no_transmitters.get(), no_receivers.get(), freq_band.get())
+        c = calculate_Channel_Capacity(snr_result, no_transmitters, no_receivers, freq_band) / 1000
 
         # Setting the labels
         vehicle_data[i][0].set(data.markers[i].id)
         vehicle_data[i][1].set(round(distance_calculation, decimal_places))
         vehicle_data[i][2].set(round(1.234, decimal_places))
-        #vehicle_data[i][3].set(round(c, decimal_places))
+        vehicle_data[i][3].set(round(c, decimal_places))
         vehicle_data[i][4].set(data.markers[i].text)
 
 

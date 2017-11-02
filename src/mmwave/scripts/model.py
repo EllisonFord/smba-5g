@@ -174,6 +174,7 @@ def set_defaults():
 #    carrier_freq, freq_band, no_transmitters, no_receivers, distance_m, power_db, trans_gain, receiv_gain, foilage, temperature, rain, weather_att, path_loss_exp, environ_param1, environ_param2
     # Set variables to default values on commmand
     carrier_freq.set(defaults[CARR_FREQ])
+    print(carrier_freq.get())
     freq_band.set(defaults[FREQ_BAND])
     no_transmitters.set(defaults[NT])
     no_receivers.set(defaults[NR])
