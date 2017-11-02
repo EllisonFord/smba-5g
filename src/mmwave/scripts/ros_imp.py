@@ -94,8 +94,6 @@ def callback(data):
     from model_functions import *
     from mimo import *
 
-
-
     for i, vehicle in enumerate(data.markers):
 
         # Calculations

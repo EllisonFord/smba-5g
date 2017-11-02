@@ -91,6 +91,7 @@ def userinput():
         if i == CARR_FREQ:
             global carrier_freq
             carrier_freq    = float(entry.get())
+            print(carrier_freq)
         if i == FREQ_BAND:
             global freq_band
             freq_band       = float(entry.get())
@@ -127,6 +128,7 @@ def userinput():
         if i == PATHLOSSEXP:
             global path_loss_exp
             path_loss_exp   = float(entry.get())
+            print(path_loss_exp)
 
 
 def option_func(value):
