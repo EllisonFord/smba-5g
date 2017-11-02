@@ -4,17 +4,11 @@
 This application models a 5G network in the workspace of connected vehicles. The main goals were to simulate the upload and download behaviour vehicles to a nearby infrastructure using the 5th Generation of telecommunications technology. As well as provide the user with useful plots to study the T-R relation and improve performance.
 
 ## Required
-Python >= 3.5
 
 chmod -x model.py
+Add path to Python interpreter using: export PYTHONPATH=$PYTHONPATH:$ROS_ROOT/core/roslib/src
 
-sudo apt-get install python3-pip
-sudo apt-get install python3-tk
-pip3 install --upgrade pip
-pip3 install numpy
-pip3 install matplotlib
-pip3 install pyyaml
-pip3 install rospkg
-pip3 install catkin_pkg
+You might need: sudo apt-get install python-imaging-tk
 
 #### Known issues
+See the TODOs in the code.
