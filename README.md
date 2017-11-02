@@ -6,9 +6,10 @@ This application models a 5G network in the workspace of connected vehicles. The
 ## Required
 
 chmod -x model.py
+
 Add path to Python interpreter using: export PYTHONPATH=$PYTHONPATH:$ROS_ROOT/core/roslib/src
 
 You might need: sudo apt-get install python-imaging-tk
 
 #### Known issues
-See the TODOs in the code.
+See the TODOs in code.
