@@ -12,4 +12,4 @@ Add path to Python interpreter using: export PYTHONPATH=$PYTHONPATH:$ROS_ROOT/co
 You might need: sudo apt-get install python-imaging-tk
 
 #### Known issues
-See the TODOs in code.
+Mainly improvements to add, see the TODOs in code.
