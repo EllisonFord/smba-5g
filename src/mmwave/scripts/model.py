@@ -201,7 +201,7 @@ def userinput():
             weather_att.set(float(entry.get()))
         if i == PATHLOSSEXP:
             path_loss_exp.set(float(entry.get()))
-"""
+
 
 def option_func(value):
     if value == "Urban LOS":
@@ -216,7 +216,7 @@ def option_func(value):
     else:
         environ_param1.set(environment[1][3])  # returns 2.75
         environ_param2.set(environment[2][3])  # returns 8.0
-
+"""
 
 def plot_func():
 
