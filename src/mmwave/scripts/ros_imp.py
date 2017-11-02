@@ -20,8 +20,6 @@ try:
 except:
     import Tkinter as tkinter # python2
 
-from model_functions import *
-
 import rospy
 from visualization_msgs.msg import MarkerArray
 #from smba_core.msg import smba_object_list
@@ -33,15 +31,7 @@ default_msg_type = "visualization_msgs/MarkerArray"
 # keeps track of how many vehicles exist so that all of the table does not have to be re-drawn for every new message. Default 1.
 vehicle_number = 1
 
-"""
-id     = tkinter.IntVar()
-dist_m = tkinter.DoubleVar()
-bandw  = tkinter.DoubleVar()
-v_type = tkinter.StringVar()
-v_data = tkinter.DoubleVar()
-"""
-
-#vehicle_data = [[id, dist_m, bandw, v_type, v_data], [id, dist_m, bandw, v_type, v_data], []]
+vehicle_data = []
 
 
 # Sets the table default values, formats the size of the columns and the number of rows that will appear.
@@ -51,15 +41,8 @@ def set_ros_table():
 
     print("Drawing the table for " + str(vehicle_number) + " vehicle/s.")
 
-    id_var.set(0)
-    dist_m.set(0.0)
-    v_data.set(0.0)
-    bandw.set(0.0)
-    v_type.set("No data.")
-
-    #TODO: Each label has to have its own variable, or it won't work when you need to update them.
-
     #create here a list that has as many items as the number of vehicles
+    del vehicle_data[:]
 
     for i in range(0, vehicle_number):
 
@@ -68,21 +51,23 @@ def set_ros_table():
         else:
             colour = colour_odd
 
-        tkinter.Label(master, text="ID",                 bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
-        tkinter.Label(master, textvariable=id_var,       bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
+        vehicle_data.append(
+            [tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()])
 
-        tkinter.Label(master, text="Distance to Tx:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
-        tkinter.Label(master, textvariable=dist_m,       bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
+        tkinter.Label(master, text="ID",                        bg=colour, height=1, width=2,  anchor='w').grid(row=i+1, column=4)
+        tkinter.Label(master, textvariable=vehicle_data[i][0],  bg=colour, height=1, width=3,  anchor='w').grid(row=i+1, column=5)
 
-        tkinter.Label(master, text="Vehicle Data:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8)  # how much data the vehicle wants to offload to the grid
-        tkinter.Label(master, textvariable=v_data,       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
+        tkinter.Label(master, text="Distance to Tx:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=6)
+        tkinter.Label(master, textvariable=vehicle_data[i][1],  bg=colour, height=1, width=9,  anchor='w').grid(row=i+1, column=7)
 
-        tkinter.Label(master, text="Transfer Speed:",    bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
-        tkinter.Label(master, textvariable=bandw,        bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
+        tkinter.Label(master, text="Vehicle Data:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=8)  # how much data the vehicle wants to offload to the grid
+        tkinter.Label(master, textvariable=vehicle_data[i][2],  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=9)
 
-        tkinter.Label(master, text="Vehicle type:",      bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
-        tkinter.Label(master, textvariable=v_type,       bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
+        tkinter.Label(master, text="Transfer Speed:",           bg=colour, height=1, width=12, anchor='w').grid(row=i+1, column=10) # how much can the tower provide
+        tkinter.Label(master, textvariable=vehicle_data[i][3],  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=11)
 
+        tkinter.Label(master, text="Vehicle type:",             bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=12)
+        tkinter.Label(master, textvariable=vehicle_data[i][4],  bg=colour, height=1, width=10, anchor='w').grid(row=i+1, column=13)
 
 
 
@@ -106,30 +91,40 @@ def callback(data):
     else:
         pass
 
+    from model_functions import *
+    from mimo import *
+
+
 
     for i, vehicle in enumerate(data.markers):
 
         # Calculations
         distance_calculation = np.hypot(data.markers[i].pose.position.x, data.markers[i].pose.position.y)
 
-        path_loss_result = path_loss(tr_distance=distance_calculation, carrier_freq=carrier_freq.get(), pl_exponent=path_loss_exp.get())
+        print("distance_calc:",distance_calculation, "carrier_freq:", carrier_freq, "path_loss_exp:",path_loss_exp)
+
+        path_loss_result = path_loss(tr_distance=distance_calculation, carrier_freq=carrier_freq, pl_exponent=path_loss_exp)
+
+        print("path_loss: ", path_loss_result)
 
         friss_result = friis(losses=(path_loss_result + rain_loss(rain.get()) + foilage_loss(carrier_freq.get(), foilage.get())), tx_power=power_db.get(), tx_gain=trans_gain.get(), rx_gain=receiv_gain.get())
 
-        snr_result = snr(signal=friss_result, noise=(nyquist_noise(freq_band.get(), temperature.get())))
+        print("friss: ", friss_result)
 
-        c = calculate_Channel_Capacity(avg_SNR=snr_result, nT=no_transmitters.get(), nR=no_receivers.get(), f_Bandwidth=freq_band.get()) / 1000
+        #snr_result = snr(signal=friss_result, noise=(nyquist_noise(freq_band.get(), temperature.get())))
+
+        #c = calculate_Channel_Capacity(snr_result, no_transmitters.get(), no_receivers.get(), freq_band.get()) / 1000
+
+
+
+        #print(snr_result, no_transmitters.get(), no_receivers.get(), freq_band.get())
 
         # Setting the labels
-        id_var.set(data.markers[i].id)
-
-        dist_m.set(round(distance_calculation, decimal_places))
-
-        v_data.set(round(1.234, decimal_places))
-
-        bandw.set(round(c, decimal_places))
-
-        v_type.set(data.markers[i].text)
+        vehicle_data[i][0].set(data.markers[i].id)
+        vehicle_data[i][1].set(round(distance_calculation, decimal_places))
+        vehicle_data[i][2].set(round(1.234, decimal_places))
+        #vehicle_data[i][3].set(round(c, decimal_places))
+        vehicle_data[i][4].set(data.markers[i].text)
 
 
 
@@ -170,7 +165,7 @@ def check_topic_status():
             return False
         else:
             status_icon = status_green
-            status_message.set("                                 ") #TODO: Improve this to a remove statement
+            status_message.set(32*" ") #TODO: Improve this to a remove statement
             return True
     else:
         if topic_list == None:

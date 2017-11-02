@@ -74,35 +74,6 @@ def set_defaults():
     environ_param2.set(environment[2][0])
 
 
-"""
-    carrier_freq.set(defaults[CARR_FREQ])
-#    global carrier_freq
-#    carrier_freq =
-    global freq_band
-    freq_band = defaults[FREQ_BAND]
-    global no_transmitters
-    no_transmitters = defaults[NT]
-    global no_receivers
-    no_receivers = defaults[NR]
-    global distance_m
-    distance_m = defaults[DIST]
-    global power_db
-    power_db = defaults[TPOWER]
-    global foilage
-    foilage = defaults[FOILAGE]
-    global temperature
-    temperature = defaults[TEMP]
-    global rain
-    rain = defaults[RAIN]
-    global weather_att
-    weather_att = defaults[WEATHER]
-    global path_loss_exp
-    path_loss_exp = defaults[PATHLOSSEXP]
-    global environ_param1
-    environ_param1 = environment[1][0]
-    global environ_param2
-    environ_param2 = environment[2][0]
-"""
 # reads the input of the user and saves it as a global variable
 def userinput():
 

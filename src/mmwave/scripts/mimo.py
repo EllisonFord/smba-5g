@@ -31,16 +31,15 @@ import matplotlib.pyplot as plt
 # builds Channel Matrix H.
 # I used a rayleigh fading model for implementing the Channel Matrix hence the random rayleigh numbers used.
 def calculate_Channel_Capacity(avg_SNR, nR, nT, f_Bandwidth):
-    H = np.zeros((nR, nT), dtype=complex)
+    H = np.zeros((int(nR), int(nT)), dtype=complex)
     scale = np.sqrt(0.5)
     for x in np.nditer(H, op_flags=['readwrite']):
         x[...] = np.random.rayleigh(scale) + 1j * np.random.rayleigh(scale)
     I_nR = np.eye(nR, nR, dtype=int)
-    A = I_nR + (avg_SNR / (nT * (np.dot(H, np.matrix.getH(H)))))
+    A = I_nR + (avg_SNR / (nT * (np.dot(H, np.matrix.getH(np.matrix(H))))))
     tmp = np.linalg.det(A)
     C = np.real(np.log2(tmp))
     return f_Bandwidth * C
-
     #consider a co-relation matrix for the MIMO channel model
 
 # Cumulated Distribution Function:
